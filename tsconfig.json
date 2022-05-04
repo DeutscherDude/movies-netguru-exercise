@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "/dist",
+    "outDir": "./dist",
     "watch": true,
     "removeComments": true,
     "sourceMap": true,
