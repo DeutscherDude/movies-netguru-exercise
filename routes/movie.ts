@@ -8,4 +8,4 @@ router
     .get(movieController.getMovies)
     .post(movieController.postMovie);
 
-module.exports = router;
+export { router as movieRouter };

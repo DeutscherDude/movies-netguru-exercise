@@ -6,7 +6,6 @@ const asyncHandler = require('express-async-handler');
 
 const postMovie = asyncHandler(async (req: Request, res: Response) => {
     let { title, released, genre, director } = req.body
-
     const movie = new Movie({
         _id: new mongoose.Types.ObjectId(),
         title,

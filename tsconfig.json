@@ -37,9 +37,10 @@
   },
   "include": [
     "src/**/*"
-  ],
+, "./index.ts", "temp/server.js"  ],
   "exclude": [
     "node_modules",
-    "dist/**/*.js"
+    "dist/**/*.js",
+    "temp/**/*"
   ],
 }

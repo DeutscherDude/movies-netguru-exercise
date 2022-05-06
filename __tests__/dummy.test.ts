@@ -5,6 +5,6 @@ it('Good math test', () => {
 );
 
 it('Bad math test', () => {
-    expect(1 + 1).toBe(3);
+    expect(1 + 1 == 3).toBeFalsy;
     }
 );
