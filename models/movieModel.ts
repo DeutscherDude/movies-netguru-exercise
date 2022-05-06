@@ -1,26 +1,26 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
 
-export default interface IMovie {
-    Title: string;
-    Released: Date;
-    Genre: string;
-    Director: string;
+export interface IMovie extends Document {
+    title: string;
+    released: Date;
+    genre: string;
+    director: string;
 }
 
 const movieSchema = new Schema<IMovie>({
-    Title: {
+    title: {
         type: String,
         required: true,
     },
-    Released: {
+    released: {
         type: Date,
         required: true,
     },
-    Genre: {
+    genre: {
         type: String,
         required: true,
     },
-    Director: {
+    director: {
         type: String,
         required: true,
     },
@@ -28,4 +28,4 @@ const movieSchema = new Schema<IMovie>({
     timestamps: true,
 });
 
-module.exports = model<IMovie>('Movie', movieSchema);
+export default model<IMovie>('Movie', movieSchema);
