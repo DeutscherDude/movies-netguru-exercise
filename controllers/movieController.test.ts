@@ -1,8 +1,6 @@
-import movieController from "./movieController";
 import mongoose, { Connection, Collection, Mongoose } from "mongoose";
 import Movie from "../models/movieModel";
 import * as dotenv from "dotenv";
-import connectDB from "../config/db";
 
 describe('db functionality tests', () => {
     let connection: any;
@@ -40,9 +38,31 @@ describe('db functionality tests', () => {
         expect(response).toHaveProperty("director", "test");
     })
 
+    it("should throw error in creating a movie", async () => {
+        try {
+            const response = await movie.create({
+                title: "test",
+                released: new Date()
+            });
+        }
+        catch (error) {
+            expect(error)
+        }
+    })
+
     it("should return a movie", async () => {
         const response = await movie.find({});
         expect(response.length).toBeGreaterThan(0);
     });
-});
 
+    it("should throw error in searching for a non-existant movie", async () => {
+        try {
+            const response = await movie.find({
+                title: "I don't exist"
+            });
+        }
+        catch (error) {
+            expect(error)
+        };
+    });
+})

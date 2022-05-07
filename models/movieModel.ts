@@ -1,6 +1,7 @@
 import { Schema, model, Document } from 'mongoose';
 
 export interface IMovie extends Document {
+    user: Schema.Types.ObjectId,
     title: string;
     released: Date;
     genre: string;
@@ -8,6 +9,11 @@ export interface IMovie extends Document {
 }
 
 const movieSchema = new Schema<IMovie>({
+    user: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'User',
+    },
     title: {
         type: String,
         required: true,
