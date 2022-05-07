@@ -18,7 +18,7 @@ const postMovie = asyncHandler(async (req: Request, res: Response) => {
         .then(result => {
             res.status(201).json({
                 success: true,
-                mvoie: result
+                movie: result
             });
         })
         .catch(error => {
