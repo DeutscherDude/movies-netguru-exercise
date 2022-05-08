@@ -27,6 +27,15 @@ interface IUserPayload extends JwtPayload {
     role: String;
 }
 
+
+function sanitizePayload(user: IUserAuthInfo["user"]): IUserAuthInfo["user"] {
+    return {
+        id: user?.id,
+        name: user?.name,
+        role: user?.role,
+    };
+}
+
 // @function protect
 // @desc Protect routes
 // @param {Request: IUserAuthInfo} req
@@ -43,7 +52,7 @@ const protect = asyncHandler(async (req: IUserAuthInfo, res: Response, next: Nex
             token = req.headers.authorization.split(' ')[1];
             const decoded = verify(token, secret) as IUserPayload;
             req.user = await User.findById(decoded.id);
-
+            req.user = sanitizePayload(req.user);
             next();
         }
         catch (error) {

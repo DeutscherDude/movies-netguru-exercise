@@ -92,8 +92,8 @@ const postMovie = asyncHandler(async (req: IUserAuthInfo, res: Response) => {
     }
     else {
         // Request body descructuring and movie creation
-        let { title, released, genre, director } = req.body;
-        let fetched = await fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=${process.env.OMDb_API_KEY}&t=${req.body.title}`, {
+        let { title } = req.body;
+        let fetched = await fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=${process.env.OMDb_API_KEY}&t=${title}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -155,12 +155,10 @@ const getMovies = asyncHandler(async (req: IUserAuthInfo, res: Response) => {
                 return res.status(200).json({
                     movies: results,
                     count: results.length,
-                    request: req.user
                 });
             })
             .catch((error) => {
                 message: error.message,
-                    req.user,
                     error
             });
     }
