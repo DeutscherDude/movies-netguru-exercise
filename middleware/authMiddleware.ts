@@ -65,8 +65,9 @@ const protect = asyncHandler(async (req: IUserAuthInfo, res: Response, next: Nex
     }
 
     if (!token) {
-        res.status(401)
-        throw new Error('Authorization token is missing');
+        res.status(401).json({
+            message: 'Authorization token is missing',
+        })
     }
 
 });
