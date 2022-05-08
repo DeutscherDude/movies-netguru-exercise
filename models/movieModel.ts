@@ -31,6 +31,7 @@ const movieSchema = new Schema<IMovie>({
     title: {
         type: String,
         required: true,
+        unique: true,
     },
     released: {
         type: Date,

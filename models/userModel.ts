@@ -1,18 +1,25 @@
 import { Schema, model, Document } from 'mongoose';
 
+// @interface IUser extends mongoose.Document
+// @param {String} name
+// @param {String} email
+// @param {String} password
+// @param {String} role
+
 export interface IUser extends Document {
-    userId?: Number;
     role?: 'basic' | 'premium';
     name?: String;
     username?: String;
     password?: String;
   }
 
+// @desc User schema
+// @param {String} name, required
+// @param {String} email, required
+// @param {String} password, required
+// @param {String} role, required
+
 const userSchema = new Schema<IUser>({
-    userId: {
-        type: Number,
-        required: true,
-    },
     role: {
         type: String,
         required: true,

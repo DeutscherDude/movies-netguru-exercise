@@ -3,6 +3,11 @@ import asyncHandler from 'express-async-handler';
 import { Request, Response, NextFunction } from 'express';
 import User from "../models/userModel";
 
+// @interface IUserAuthInfo extends express.Request
+// @param {String} user.id
+// @param {String} user.name
+// @param {String} user.role
+
 interface IUserAuthInfo extends Request {
     user?: {
         id?: String;
@@ -11,11 +16,23 @@ interface IUserAuthInfo extends Request {
     } | null;
 }
 
+// @interface IUserPayload extends JwtPayload
+// @param {String} id
+// @param {String} name
+// @param {String} role
+
 interface IUserPayload extends JwtPayload {
     id: String;
     name: String;
     role: String;
 }
+
+// @function protect
+// @desc Protect routes
+// @param {Request: IUserAuthInfo} req
+// @param {Response} res
+// @param {NextFunction} next
+// @return {void}
 
 const protect = asyncHandler(async (req: IUserAuthInfo, res: Response, next: NextFunction) => {
     let token: string | undefined = undefined;
