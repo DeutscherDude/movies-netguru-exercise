@@ -5,10 +5,16 @@ import User from "../models/userModel";
 
 interface IUserAuthInfo extends Request {
     user?: {
-        id?: Number;
+        id?: String;
         name?: String;
         role?: String;
     } | null;
+}
+
+interface IUserPayload extends JwtPayload {
+    id: String;
+    name: String;
+    role: String;
 }
 
 const protect = asyncHandler(async (req: IUserAuthInfo, res: Response, next: NextFunction) => {
@@ -18,9 +24,9 @@ const protect = asyncHandler(async (req: IUserAuthInfo, res: Response, next: Nex
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         try {
             token = req.headers.authorization.split(' ')[1];
-            const decoded = verify(token, secret) as JwtPayload;
+            const decoded = verify(token, secret) as IUserPayload;
             req.user = await User.findById(decoded.id);
-            
+
             next();
         }
         catch (error) {
@@ -36,7 +42,6 @@ const protect = asyncHandler(async (req: IUserAuthInfo, res: Response, next: Nex
         res.status(401)
         throw new Error('Authorization token is missing');
     }
-
 
 });
 
