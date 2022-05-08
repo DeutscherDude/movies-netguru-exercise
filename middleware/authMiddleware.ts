@@ -5,7 +5,7 @@ import User from "../models/userModel";
 
 interface IUserAuthInfo extends Request {
     user?: {
-        userId?: Number;
+        id?: Number;
         name?: String;
         role?: String;
     } | null;
@@ -19,10 +19,8 @@ const protect = asyncHandler(async (req: IUserAuthInfo, res: Response, next: Nex
         try {
             token = req.headers.authorization.split(' ')[1];
             const decoded = verify(token, secret) as JwtPayload;
-            req.user = await User.findById({ userId: decoded.userId }).catch(() => {
-                return null;
-            });
-
+            req.user = await User.findById(decoded.id);
+            
             next();
         }
         catch (error) {

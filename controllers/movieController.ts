@@ -6,9 +6,10 @@ import User from '../models/userModel';
 const asyncHandler = require('express-async-handler');
 
 interface IUserAuthInfo extends Request {
-    user: {
-        userId: Number;
-        role: String;
+    user?: {
+        id?: Number;
+        name?: String;
+        role?: String;
     };
 }
 
@@ -42,11 +43,11 @@ const getMovies = asyncHandler(async (req: IUserAuthInfo, res: Response) => {
     if (req.user === null) {
         return res.status(401).json({
             message: 'User not found, please login with valid credentials',
-            request: req.body
+            request: req.headers
         })
     }
     else {
-        Movie.find({ user: req.user.userId })
+        await Movie.find({ user: req.user?.id })
             .exec()
             .then((results) => {
                 return res.status(200).json({
@@ -57,6 +58,7 @@ const getMovies = asyncHandler(async (req: IUserAuthInfo, res: Response) => {
             })
             .catch((error) => {
                 message: error.message,
+                    req.user,
                     error
             });
     }

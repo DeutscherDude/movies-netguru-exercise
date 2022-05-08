@@ -11,6 +11,7 @@ export interface IMovie extends Document {
 const movieSchema = new Schema<IMovie>({
     user: {
         type: Schema.Types.ObjectId,
+        id: Number,
         required: true,
         ref: 'User',
     },
