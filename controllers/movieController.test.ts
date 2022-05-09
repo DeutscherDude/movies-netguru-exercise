@@ -1,8 +1,12 @@
+import { getMockReq, getMockRes } from '@jest-mock/express';
+import movieController from '../controllers/movieController';
 import mongoose, { Connection, Collection, Mongoose } from "mongoose";
 import Movie from "../models/movieModel";
 import * as dotenv from "dotenv";
 
 describe('db functionality tests', () => {
+    let mockReq: any;
+    let mockRes: any;
     let connection: any;
     let db: Connection;
     const movie = Movie;
@@ -15,6 +19,14 @@ describe('db functionality tests', () => {
         await db.createCollection(collection);
     })
 
+    beforeEach(() => {
+        mockReq = {};
+        mockRes = {
+            status: jest.fn(),
+            json: jest.fn(),
+        };
+    })
+
     afterAll(async () => {
         const collection: string = "test_movies";
         await db.dropCollection(collection);
@@ -23,31 +35,50 @@ describe('db functionality tests', () => {
     })
 
     it("should create a movie", async () => {
-        const response = await movie.create({
-            title: "test",
-            released: new Date(),
-            genre: "test",
-            director: "test"
-        });
-        expect(response).toBeDefined();
-        expect(response).toBeInstanceOf(Movie);
-        expect(response).toHaveProperty("_id");
-        expect(response).toHaveProperty("title", "test");
-        expect(response).toHaveProperty("released");
-        expect(response).toHaveProperty("genre", "test");
-        expect(response).toHaveProperty("director", "test");
+        mockReq = {
+            body: {
+                title: "Belle",
+            },
+            user: {
+                // Basic Thomas' user id
+                id: "6276f7011c3a78d41c04c65b"
+            }
+        }
+
+        new Promise(() => {
+            movieController.postMovie(mockReq, mockRes);
+        }).then(() => {
+            expect(mockRes.json).toBeCalledWith({
+                success: true,
+                movie: {
+                    title: "Belle",
+                    released: "13 Jun 2014",
+                    genre: "Biography, Drama, Romance",
+                    director: "Amma Asante",
+                }
+            });
+        })
     })
 
     it("should throw error in creating a movie", async () => {
-        try {
-            const response = await movie.create({
-                title: "test",
-                released: new Date()
-            });
+        mockReq = {
+            body: {
+                title: "testttt",
+            },
+            user: {
+                // Basic Thomas' user id
+                id: "6276f7011c3a78d41c04c65b"
+            }
         }
-        catch (error) {
-            expect(error)
-        }
+
+        new Promise(() => {
+            movieController.postMovie(mockReq, mockRes);
+        }).then(() => {
+            expect(mockRes.json).toBeCalledWith({
+                "Response": "False",
+                "Error": "Movie not found!",
+            })
+        })
     })
 
     it("should return a movie", async () => {

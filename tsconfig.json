@@ -36,8 +36,12 @@
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
   "include": [
-    "src/**/*"
-, "./index.ts", "temp/server.js"  ],
+    "src/**/*",
+    "middleware/authMiddleware.ts",
+    "models/**/*",
+    "controllers/movieController.ts",
+    "./index.ts", 
+    "temp/server.js"  ],
   "exclude": [
     "node_modules",
     "dist/**/*.js",
