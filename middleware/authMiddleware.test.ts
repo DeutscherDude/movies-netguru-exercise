@@ -15,14 +15,17 @@ describe('authMiddleware functionality test', () => {
         };
     });
 
-    it('no authorization header returns error', () => {
+    it('no authorization header returns missing auth token message', () => {
         mockReq = {
             headers: {}
         }
 
-        protect(mockReq, mockRes, next);
-        expect(mockRes.json).toBeCalledWith({
-            message: 'Authorization token is missing',
+        new Promise (() => {
+            protect(mockReq, mockRes, next);
+        }).then(() => {
+            expect(mockRes.json).toBeCalledWith({
+                message: 'Authorization token is missing',
+        })
         });
     })
 
@@ -41,8 +44,10 @@ describe('authMiddleware functionality test', () => {
                 }
             }
         });
-        mockRes = getMockRes();
-        protect(mockReq, mockRes, next);
-        expect(next).toHaveBeenCalled();
+        new Promise (() => {
+            protect(mockReq, mockRes, next);
+        }).then(() => {
+            expect(next).toHaveBeenCalled();
+        })
     })
 });

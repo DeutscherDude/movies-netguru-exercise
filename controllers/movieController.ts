@@ -5,10 +5,12 @@ import mongoose from 'mongoose';
 const asyncHandler = require('express-async-handler');
 const fetch = require("node-fetch");
 
-// @interface IUserAuthInfo extends express.Request
-// @param {String} user.id
-// @param {String} user.name
-// @param {String} user.role
+/**
+ * @interface IUserAuthInfo extends express.Request
+ * @param {String} user.id
+ * @param {String} user.name
+ * @param {String} user.role
+ * */ 
 
 interface IUserAuthInfo extends Request {
     user?: {
@@ -18,32 +20,34 @@ interface IUserAuthInfo extends Request {
     };
 }
 
-// @interface IOMovie extends Movie
-// @param {String} Title
-// @param {String} Year
-// @param {String} Rated
-// @param {String} Released
-// @param {String} Runtime
-// @param {String} Genre
-// @param {String} Director
-// @param {String} Writer
-// @param {String} Actors
-// @param {String} Plot
-// @param {String} Language
-// @param {String} Country
-// @param {String} Awards
-// @param {String} Poster
-// @param {Object} Ratings
-// @param {String} Metascore
-// @param {String} imdbRating
-// @param {String} imdbVotes
-// @param {String} imdbID
-// @param {String} Type
-// @param {String} DVD
-// @param {String} BoxOffice
-// @param {String} Production
-// @param {String} Website
-// @param {String} Response    
+/**
+ * @interface IOMovie extends Response
+ * @param {String} Title
+ * @param {String} Year
+ * @param {String} Rated
+ * @param {String} Released
+ * @param {String} Runtime
+ * @param {String} Genre
+ * @param {String} Director
+ * @param {String} Writer
+ * @param {String} Actors
+ * @param {String} Plot
+ * @param {String} Language
+ * @param {String} Country
+ * @param {String} Awards
+ * @param {String} Poster
+ * @param {Object} Ratings
+ * @param {String} Metascore
+ * @param {String} imdbRating
+ * @param {String} imdbVotes
+ * @param {String} imdbID
+ * @param {String} Type
+ * @param {String} DVD
+ * @param {String} BoxOffice
+ * @param {String} Production
+ * @param {String} Website
+ * @param {String} Response    
+ *  */ 
 
 interface IOMDbPayload extends Response {
     Title: String;
@@ -77,10 +81,12 @@ interface IOMDbPayload extends Response {
 }
 
 
-// @desc Create a movie
-// @route POST /api/movie
-// @access Private
-// @return {Object} movie
+/**
+ * @desc Create a movie method
+ * @route POST /api/movie
+ * @access Private
+ * @return {Object} movie
+ *  */ 
 
 const postMovie = asyncHandler(async (req: IUserAuthInfo, res: Response) => {
     // User validation check
@@ -136,10 +142,12 @@ const postMovie = asyncHandler(async (req: IUserAuthInfo, res: Response) => {
 
 })
 
-// @desc Get all movies by user id
-// @route GET /api/movie
-// @access Private
-// @return {Object[]} movies, count of movies
+/**
+ * @desc Get all movies by user id
+ * @route GET /api/movie
+ * @access Private
+ * @return {Object[]} movies, count of movies
+ *  */ 
 
 const getMovies = asyncHandler(async (req: IUserAuthInfo, res: Response) => {
     if (req.user === null) {

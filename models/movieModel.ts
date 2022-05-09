@@ -1,11 +1,13 @@
 import { Schema, model, Document } from 'mongoose';
 
-// @interface IMovie extends mongoose.Document
-// @param {String} title
-// @param {String} released
-// @param {String} genre
-// @param {String} director
-// @param {Schema.Types.ObjectId} user
+/**
+ * @interface IMovie extends mongoose.Document
+ * @param {String} title
+ * @param {String} released
+ * @param {String} genre
+ * @param {String} director
+ * @param {Schema.Types.ObjectId} user
+ *  */ 
 
 export interface IMovie extends Document {
     user: Schema.Types.ObjectId,
@@ -15,12 +17,14 @@ export interface IMovie extends Document {
     director: String;
 }
 
-// @desc Movie schema
-// @param {String} title, required
-// @param {String} released, required
-// @param {String} genre, required
-// @param {String} director, required
-// @param {Schema.Types.ObjectId} user, required
+/**
+ * @desc Movie schema
+ * @param {String} title, required
+ * @param {String} released, required
+ * @param {String} genre, required
+ * @param {String} director, required
+ * @param {Schema.Types.ObjectId} user, required
+ *  */ 
 
 const movieSchema = new Schema<IMovie>({
     user: {
