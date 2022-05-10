@@ -1,6 +1,7 @@
 import { getMockReq, getMockRes } from '@jest-mock/express';
 import movieController from '../controllers/movieController';
 import mongoose, { Connection, Collection, Mongoose } from "mongoose";
+import { Response } from "express";
 import Movie from "../models/movieModel";
 import * as dotenv from "dotenv";
 
@@ -22,8 +23,10 @@ describe('movieController functionality tests', () => {
     beforeEach(() => {
         mockReq = {};
         mockRes = {
-            json: jest.fn(),
-            status: jest.fn(),
+            json: function(){},
+            status: jest.fn(responseStatus => {
+                return mockRes;
+            })
         };
     })
 
@@ -74,14 +77,14 @@ describe('movieController functionality tests', () => {
         new Promise(() => {
             movieController.postMovie(mockReq, mockRes);
         }).then(() => {
-            expect(mockRes.json).toBeCalledWith({
+            expect(mockRes.status).toBeCalledWith({
                 "Response": "False",
                 "Error": "Movie not found!",
             })
         })
     })
 
-    it("should return a movie", async () => {
+    it("should return movies created by Basic Thomas", async () => {
         mockReq = {
             user: {
                 // Basic Thomas' user id
