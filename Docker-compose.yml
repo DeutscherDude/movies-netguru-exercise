@@ -1,0 +1,26 @@
+version: "1.0"
+services:
+  app:
+    command: node src/server.js
+    build:
+      context: .
+      dockerfile: Dockerfile.auth
+    ports:
+      - published: ${APP_PORT:-3000}
+        target: 3000
+    volumes:
+      - .:/app/
+    environment:
+      JWT_SECRET: ${JWT_SECRET}
+  api:
+    command: npx ts-node index.ts
+    build:
+      context: .
+      dockerfile: Dockerfile.movies
+    ports:
+      - published: ${SERVER_PORT:-5050}
+        target: 5050
+    volumes:
+      - .:/api/
+    environment:
+      SERVER_PORT: ${SERVER_PORT}

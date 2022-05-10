@@ -4,7 +4,7 @@ import mongoose, { Connection, Collection, Mongoose } from "mongoose";
 import Movie from "../models/movieModel";
 import * as dotenv from "dotenv";
 
-describe('db functionality tests', () => {
+describe('movieController functionality tests', () => {
     let mockReq: any;
     let mockRes: any;
     let connection: any;
@@ -22,8 +22,8 @@ describe('db functionality tests', () => {
     beforeEach(() => {
         mockReq = {};
         mockRes = {
-            status: jest.fn(),
             json: jest.fn(),
+            status: jest.fn(),
         };
     })
 
@@ -82,8 +82,21 @@ describe('db functionality tests', () => {
     })
 
     it("should return a movie", async () => {
-        const response = await movie.find({});
-        expect(response.length).toBeGreaterThan(0);
+        mockReq = {
+            user: {
+                // Basic Thomas' user id
+                id: "6276f7011c3a78d41c04c65b"
+            }
+        }
+
+        new Promise(() => {
+            movieController.getMovies(mockReq, mockRes);
+        }
+        ).then(() => {
+            expect(mockRes.json).toBeCalledWith({
+                success: true,
+            });
+        })
     });
 
     it("should throw error in searching for a non-existant movie", async () => {

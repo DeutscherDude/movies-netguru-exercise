@@ -1,0 +1,11 @@
+FROM node:17.19-alpine
+
+WORKDIR /api
+
+COPY ./package.json ./package-lock.json ./
+RUN npm install
+
+COPY . .
+RUN rm -r ./src
+
+CMD ["npx", "ts-node index.ts"]

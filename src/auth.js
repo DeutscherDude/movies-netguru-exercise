@@ -1,23 +1,15 @@
-import * as jwt from "jsonwebtoken";
-
-export interface User {
-  id?: number;
-  role?: 'basic' | 'premium';
-  name?: string;
-  username?: string;
-  password?: string;
-}
+const jwt = require("jsonwebtoken");
 
 const users = [
   {
-    id: 123,
+    id: "6276f7011c3a78d41c04c65b",
     role: "basic",
     name: "Basic Thomas",
     username: "basic-thomas",
     password: "sR-_pcoow-27-6PAwCD8",
   },
   {
-    id: 434,
+    id: "6276f7351c3a78d41c04c65c",
     role: "premium",
     name: "Premium Jim",
     username: "premium-jim",
@@ -27,7 +19,7 @@ const users = [
 
 class AuthError extends Error {}
 
-const authFactory = (secret: jwt.Secret) => (username: User["username"], password: User["password"]) => {
+const authFactory = (secret) => (username, password) => {
   const user = users.find((u) => u.username === username);
 
   if (!user || user.password !== password) {
@@ -36,7 +28,7 @@ const authFactory = (secret: jwt.Secret) => (username: User["username"], passwor
 
   return jwt.sign(
     {
-      userId: user.id,
+      id: user.id,
       name: user.name,
       role: user.role,
     },
