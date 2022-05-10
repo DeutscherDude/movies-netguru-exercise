@@ -23,7 +23,9 @@ describe('movieController functionality tests', () => {
     beforeEach(() => {
         mockReq = {};
         mockRes = {
-            json: function(){},
+            json: jest.fn(() => {
+                
+            }),
             status: jest.fn(responseStatus => {
                 return mockRes;
             })
