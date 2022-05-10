@@ -104,6 +104,17 @@ describe('movieController functionality tests', () => {
         })
     });
 
+    it("should return status 401 - no user token", async () => {
+        mockReq = {}
+        new Promise(() => {
+            movieController.getMovies(mockReq, mockRes)
+        }).then(() => {
+            expect(mockRes.json).toBeCalledWith({
+                message: "User not found, please login with valid credentials"
+            })
+        })
+    })
+
     it("should throw error in searching for a non-existant movie", async () => {
         try {
             const response = await movie.find({
