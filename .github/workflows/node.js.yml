@@ -19,6 +19,15 @@ jobs:
         node-version: [17.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
+    env:
+      MONGO_USERNAME: ${{secrets.MONGO_USERNAME}}
+      MONGO_PASSWORD: ${{secrets.MONGO_PASSWORD}}
+      MONGO_URI: ${{secrets.MONGO_URI}}
+      JWT_SECRET: ${{secrets.JWT_SECRET}}
+      SERVER_PORT: ${{secrets.SERVER_PORT}}
+      APP_PORT: ${{secrets.APP_PORT}}
+      OMDb_API_KEY: ${{secrets.OMDb_API_KEY}}
+
     steps:
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
