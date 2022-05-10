@@ -1,5 +1,5 @@
 import { getMockReq, getMockRes } from '@jest-mock/express';
-import movieController from '../controllers/movieController';
+import { getMovies, postMovie } from '../controllers/movieController';
 import mongoose, { Connection, Collection, Mongoose } from "mongoose";
 import { Response } from "express";
 import Movie from "../models/movieModel";
@@ -51,7 +51,7 @@ describe('movieController functionality tests', () => {
         }
 
         new Promise(() => {
-            movieController.postMovie(mockReq, mockRes);
+            postMovie(mockReq, mockRes);
         }).then(() => {
             expect(mockRes.json).toBeCalledWith({
                 success: true,
@@ -77,7 +77,7 @@ describe('movieController functionality tests', () => {
         }
 
         new Promise(() => {
-            movieController.postMovie(mockReq, mockRes);
+            postMovie(mockReq, mockRes);
         }).then(() => {
             expect(mockRes.status).toBeCalledWith({
                 "Response": "False",
@@ -95,7 +95,7 @@ describe('movieController functionality tests', () => {
         }
 
         new Promise(() => {
-            movieController.getMovies(mockReq, mockRes);
+            getMovies(mockReq, mockRes);
         }
         ).then(() => {
             expect(mockRes.json).toBeCalledWith({
@@ -107,7 +107,7 @@ describe('movieController functionality tests', () => {
     it("should return status 401 - no user token", async () => {
         mockReq = {}
         new Promise(() => {
-            movieController.getMovies(mockReq, mockRes)
+            getMovies(mockReq, mockRes)
         }).then(() => {
             expect(mockRes.json).toBeCalledWith({
                 message: "User not found, please login with valid credentials"

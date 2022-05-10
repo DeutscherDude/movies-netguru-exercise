@@ -11,7 +11,7 @@ import User from "../models/userModel";
  * @param {String} user.role
  * */
 
-interface IUserAuthInfo extends Request {
+export interface IUserAuthInfo extends Request {
     user?: {
         id?: String;
         name?: String;
@@ -27,7 +27,7 @@ interface IUserAuthInfo extends Request {
  * @param {String} role
 **/
 
-interface IUserPayload extends JwtPayload {
+export interface IUserPayload extends JwtPayload {
     id: String;
     name: String;
     role: String;

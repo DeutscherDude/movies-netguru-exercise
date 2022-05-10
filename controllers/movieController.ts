@@ -12,7 +12,7 @@ const fetch = require("node-fetch");
  * @param {String} user.role
  * */ 
 
-interface IUserAuthInfo extends Request {
+export interface IUserAuthInfo extends Request {
     user?: {
         id?: String;
         name?: String;
@@ -49,7 +49,7 @@ interface IUserAuthInfo extends Request {
  * @param {String} Response    
  *  */ 
 
-interface IOMDbPayload extends Response {
+export interface IOMDbPayload extends Response {
     Title: String;
     Year: String;
     Rated: String;
@@ -88,7 +88,7 @@ interface IOMDbPayload extends Response {
  * @return {Object} movie
  *  */ 
 
-const postMovie = asyncHandler(async (req: IUserAuthInfo, res: Response) => {
+export const postMovie = asyncHandler(async (req: IUserAuthInfo, res: Response) => {
     // User validation check
     if (req.user === null) {
         res.status(401).json({
@@ -149,7 +149,7 @@ const postMovie = asyncHandler(async (req: IUserAuthInfo, res: Response) => {
  * @return {Object[]} movies, count of movies
  *  */ 
 
-const getMovies = asyncHandler(async (req: IUserAuthInfo, res: Response) => {
+export const getMovies = asyncHandler(async (req: IUserAuthInfo, res: Response) => {
     if (req.user === null) {
         return res.status(401).json({
             message: 'User not found, please login with valid credentials',
@@ -171,5 +171,3 @@ const getMovies = asyncHandler(async (req: IUserAuthInfo, res: Response) => {
             });
     }
 });
-
-export default { postMovie, getMovies };

@@ -1,5 +1,5 @@
 import express from "express";
-import movieController from "../controllers/movieController";
+import { getMovies, postMovie } from "../controllers/movieController";
 import protect from "../middleware/authMiddleware";
 
 /**
@@ -12,7 +12,7 @@ const router = express.Router();
 
 router
     .route("/")
-    .get(protect, movieController.getMovies)
-    .post(protect, movieController.postMovie);
+    .get(protect, getMovies)
+    .post(protect, postMovie);
 
 export { router as movieRouter };
