@@ -1,7 +1,7 @@
 import { Schema, model, Document } from 'mongoose';
 
 /**
- * @interface IMovie extends mongoose.Document
+ * Interface IMovie extends mongoose.Document
  * @param {String} title
  * @param {String} released
  * @param {String} genre

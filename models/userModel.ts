@@ -1,7 +1,7 @@
 import { Schema, model, Document } from 'mongoose';
 
 /**
- * @interface IUser extends mongoose.Document
+ * Interface IUser extends mongoose.Document
  * @param {String} name
  * @param {String} email
  * @param {String} password
@@ -16,7 +16,7 @@ export interface IUser extends Document {
   }
 
 /**
- * @desc User schema
+ * User schema
  * @param {String} name, required
  * @param {String} email, required
  * @param {String} password, required

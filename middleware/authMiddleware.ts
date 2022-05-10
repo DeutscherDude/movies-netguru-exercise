@@ -4,7 +4,7 @@ import { Request, Response, NextFunction } from 'express';
 import User from "../models/userModel";
 
 /**
- * @desc Interaface IUserAuthInfo extends express Request to include user auth info
+ * Interaface IUserAuthInfo extends express Request to include user auth info
  * @interface IUserAuthInfo extends express.Request
  * @param {String} user.id
  * @param {String} user.name
@@ -20,7 +20,7 @@ interface IUserAuthInfo extends Request {
 }
 
 /**
- * @desc Interface IUserPayload extends JwtPayload to include user auth info
+ * Interface IUserPayload extends JwtPayload to include user auth info
  * @interface IUserPayload extends JwtPayload
  * @param {String} id
  * @param {String} name
@@ -34,7 +34,7 @@ interface IUserPayload extends JwtPayload {
 }
 
 /**
- * @desc Strips the user password from the payload
+ * Strips the user password from the payload
  * @param user: IUserAuthInfo["user"]
  * @returns 
  */
@@ -48,7 +48,7 @@ function sanitizePayload(user: IUserAuthInfo["user"]): IUserAuthInfo["user"] {
 }
 
 /**
- * @desc Asynchronous middleware, which verifies the user's JWT Token
+ * Asynchronous middleware, which verifies the user's JWT Token
  * @function protect
  * @param {Request: IUserAuthInfo} req
  * @param {Response} res

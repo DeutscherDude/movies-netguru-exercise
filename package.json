@@ -22,12 +22,12 @@
   "homepage": "https://github.com/DeutscherDude/movies-netguru-exercise#readme",
   "dependencies": {
     "@types/jsonwebtoken": "^8.5.8",
+    "body-parser": "1.19.0",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.0",
     "express": "^4.18.1",
     "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
-    "body-parser": "1.19.0",
     "mongoose": "^6.3.2",
     "node-fetch": "^2.6.7"
   },
@@ -42,6 +42,7 @@
     "jsdoc-plugin-typescript": "^2.0.7",
     "nodemon": "^2.0.16",
     "ts-jest": "^28.0.1",
-    "ts-node": "^10.7.0"
+    "ts-node": "^10.7.0",
+    "typedoc": "^0.22.15"
   }
 }

@@ -6,7 +6,7 @@ const asyncHandler = require('express-async-handler');
 const fetch = require("node-fetch");
 
 /**
- * @interface IUserAuthInfo extends express.Request
+ * Interface IUserAuthInfo extends express.Request
  * @param {String} user.id
  * @param {String} user.name
  * @param {String} user.role
@@ -21,7 +21,7 @@ interface IUserAuthInfo extends Request {
 }
 
 /**
- * @interface IOMovie extends Response
+ * Interface IOMovie extends Response
  * @param {String} Title
  * @param {String} Year
  * @param {String} Rated
@@ -82,7 +82,7 @@ interface IOMDbPayload extends Response {
 
 
 /**
- * @desc Create a movie method
+ * Method for asynchronously creating a movie
  * @route POST /api/movie
  * @access Private
  * @return {Object} movie
