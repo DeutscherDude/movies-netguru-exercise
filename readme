@@ -1,9 +1,9 @@
-#Cloning this repository
+Cloning this repository
 
     In order to clone this repository, please use the following command:
     git clone https://github.com/DeutscherDude/movies-netguru-exercise.git
 
-#Create a '.env' file including:
+Create a '.env' file including:
     - MONGO_USERNAME (Your MongoDb username)
     - MONGO_PASSWORD (Your MongoDb password)
     - MONGO_URI (Connection string)
@@ -12,7 +12,7 @@
     - APP_PORT (Prefered port for the API service, default: 5050)
 
 
-#Running the project
+Running the project
 
     To start up the project in seperate docker containers, run the following command:
     docker-compose up
@@ -21,7 +21,7 @@
     docker-compose down
     OR press ctrl + c
 
-#API methods & examples
+API methods & examples
 
     In Postman or your HTTP Client of choice, use the following URL:
         http://localhost:5050/api/movie/
