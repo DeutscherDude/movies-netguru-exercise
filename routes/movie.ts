@@ -5,7 +5,7 @@ import protect from "../middleware/authMiddleware";
 /**
  * @desc Router for movie routes. Provides one protected route that can be posted with: GET - to retrieve all movies by user id, POST - to create a new movie for the requesting User
  * @param {Express} app
- * @return {void}
+ * @return {void} void
  */
 
 const router = express.Router();
