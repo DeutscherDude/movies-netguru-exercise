@@ -3,7 +3,7 @@ FROM node:17.9.0-alpine
 
 WORKDIR /api
 
-COPY ./package.json ./package-lock.json ./
+COPY .././package.json .././package-lock.json ./
 RUN npm install
 
 COPY . .

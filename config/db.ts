@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
 
+class DbConnectionError extends Error {}
+
 const connectDB = async () => {
     try {
         const conn = await mongoose.connect(process.env.MONGO_URI || "mongodb://localhost/movies");
-        console.log(`MongoDB Connected: ${conn.connection.host}`);
     }
-    catch (err) {
-        console.error(err);
-        process.exit(1);
+    catch (err: any) {
+        throw new DbConnectionError(err);
     }
 }
 

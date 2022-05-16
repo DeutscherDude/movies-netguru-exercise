@@ -2,26 +2,42 @@ version: "3.2"
 services:
   app:
     command: node src/server.js
+    container_name: app_movies
     build:
       context: .
-      dockerfile: Dockerfile.auth
+      dockerfile: ./docker/Dockerfile.auth
     ports:
       - published: ${APP_PORT:-3000}
         target: 3000
     volumes:
       - .:/app/
     environment:
-      JWT_SECRET: ${JWT_SECRET}
-      APP_PORT: ${APP_PORT}
+      JWT_SECRET: ${JWT_SECRET:-myTotallySafeSecret}
+      APP_PORT: ${APP_PORT:-3000}
   api:
     command: npx ts-node index.ts
+    container_name: api_movies
     build:
       context: .
-      dockerfile: Dockerfile.movies
+      dockerfile: ./docker/Dockerfile.movies
     ports:
       - published: ${SERVER_PORT:-5050}
         target: 5050
     volumes:
       - .:/api/
     environment:
-      SERVER_PORT: ${SERVER_PORT}
+      SERVER_PORT: ${SERVER_PORT:-5050}
+  db:
+    image: mongo:5.0
+    container_name: mongodb_movies
+    restart: always
+    ports:
+      - published: ${MONGO_DB_PORT:-27017}
+        target: 27017
+    volumes:
+      - .:/db/
+    environment:
+      MONGO_DB_PORT: ${MONGO_DB_PORT:-27017}
+      MONGO_DB_NAME: ${MONGO_DB_NAME:-movies}
+      MONGO_USERNAME: ${MONGO_USERNAME?err}
+      MONGO_PASSWORD: ${MONGO_PASSWORD?err}
