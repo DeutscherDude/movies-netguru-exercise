@@ -13,9 +13,9 @@ import User from "../models/userModel";
 
 export interface IUserAuthInfo extends Request {
     user?: {
-        id?: String;
-        name?: String;
-        role?: String;
+        id?: string;
+        name?: string;
+        role?: string;
     } | null;
 }
 
@@ -28,9 +28,9 @@ export interface IUserAuthInfo extends Request {
 **/
 
 export interface IUserPayload extends JwtPayload {
-    id: String;
-    name: String;
-    role: String;
+    id: string;
+    name: string;
+    role: string;
 }
 
 /**

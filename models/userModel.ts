@@ -10,9 +10,9 @@ import { Schema, model, Document } from 'mongoose';
 
 export interface IUser extends Document {
     role?: 'basic' | 'premium';
-    name?: String;
-    username?: String;
-    password?: String;
+    name?: string;
+    username?: string;
+    password?: string;
   }
 
 /**

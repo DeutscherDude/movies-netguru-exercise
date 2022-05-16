@@ -16,7 +16,7 @@ Under 'Choose account type' choose 'FREE', which allows for 1000 requests per da
 
 Furthermore, you have to provide:
 
-- Provide your e-mail address
+- Your e-mail address
 - Name
 - Surname
 - Use case for the API key you are generating

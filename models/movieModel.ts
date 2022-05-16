@@ -11,10 +11,10 @@ import { Schema, model, Document } from 'mongoose';
 
 export interface IMovie extends Document {
     user: Schema.Types.ObjectId,
-    title: String;
+    title: string;
     released: Date;
-    genre: String;
-    director: String;
+    genre: string;
+    director: string;
 }
 
 /**

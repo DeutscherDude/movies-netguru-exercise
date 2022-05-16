@@ -14,9 +14,9 @@ const fetch = require("node-fetch");
 
 export interface IUserAuthInfo extends Request {
     user?: {
-        id?: String;
-        name?: String;
-        role?: String;
+        id?: string;
+        name?: string;
+        role?: string;
     };
 }
 
@@ -50,36 +50,35 @@ export interface IUserAuthInfo extends Request {
  *  */ 
 
 export interface IOMDbPayload extends Response {
-    Title: String;
-    Year: String;
-    Rated: String;
-    Released: String;
-    Runtime: String;
-    Genre: String;
-    Director: String;
-    Writer: String;
-    Actors: String;
-    Plot: String;
-    Language: String;
-    Country: String;
-    Awards: String;
-    Poster: String;
+    Title: string;
+    Year: string;
+    Rated: string;
+    Released: string;
+    Runtime: string;
+    Genre: string;
+    Director: string;
+    Writer: string;
+    Actors: string;
+    Plot: string;
+    Language: string;
+    Country: string;
+    Awards: string;
+    Poster: string;
     Ratings: {
-        Source: String;
-        Value: String;
+        Source: string;
+        Value: string;
     }[];
-    Metascore: String;
-    imdbRating: String;
-    imdbVotes: String;
-    imdbID: String;
-    Type: String;
-    DVD: String;
-    BoxOffice: String;
-    Production: String;
-    Website: String;
-    Response: String;
+    Metascore: string;
+    imdbRating: string;
+    imdbVotes: string;
+    imdbID: string;
+    Type: string;
+    DVD: string;
+    BoxOffice: string;
+    Production: string;
+    Website: string;
+    Response: string;
 }
-
 
 /**
  * Method for asynchronously creating a movie
@@ -98,8 +97,8 @@ export const postMovie = asyncHandler(async (req: IUserAuthInfo, res: Response) 
     }
     else {
         // Request body descructuring and movie creation
-        let { title } = req.body;
-        let fetched = await fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=${process.env.OMDb_API_KEY}&t=${title}`, {
+        const { title } = req.body;
+        const fetched = await fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=${process.env.OMDb_API_KEY}&t=${title}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -115,7 +114,7 @@ export const postMovie = asyncHandler(async (req: IUserAuthInfo, res: Response) 
                     error: err
                 })
             });
-        let { Title, Released, Genre, Director } = fetched;
+        const { Title, Released, Genre, Director } = fetched;
         const movie = new Movie({
             user: req.user?.id,
             _id: new mongoose.Types.ObjectId(),

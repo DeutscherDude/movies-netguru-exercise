@@ -1,11 +1,11 @@
-import { getMockReq, getMockRes } from '@jest-mock/express';
+import { getMockReq } from '@jest-mock/express';
 import { NextFunction } from "express";
 import protect from '../middleware/authMiddleware';
 
 describe('authMiddleware functionality test', () => {
     let mockReq: any;
     let mockRes: any;
-    let next: NextFunction = jest.fn();
+    const next: NextFunction = jest.fn();
 
     beforeEach(() => {
         mockReq = {};

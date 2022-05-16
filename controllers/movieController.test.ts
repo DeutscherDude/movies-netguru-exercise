@@ -1,7 +1,5 @@
-import { getMockReq, getMockRes } from '@jest-mock/express';
 import { getMovies, postMovie } from '../controllers/movieController';
-import mongoose, { Connection, Collection, Mongoose } from "mongoose";
-import { Response } from "express";
+import mongoose, { Connection } from "mongoose";
 import Movie from "../models/movieModel";
 import * as dotenv from "dotenv";
 
@@ -16,7 +14,7 @@ describe('movieController functionality tests', () => {
     beforeAll(async () => {
         connection = await mongoose.connect(process.env.MONGO_URI || "mongodb://localhost/movies");
         db = mongoose.connection;
-        const collection: string = "test_movies";
+        const collection = "test_movies";
         await db.createCollection(collection);
     })
 
@@ -24,7 +22,7 @@ describe('movieController functionality tests', () => {
         mockReq = {};
         mockRes = {
             json: jest.fn(() => {
-                
+                // 
             }),
             status: jest.fn(responseStatus => {
                 return mockRes;
@@ -33,7 +31,7 @@ describe('movieController functionality tests', () => {
     })
 
     afterAll(async () => {
-        const collection: string = "test_movies";
+        const collection = "test_movies";
         await db.dropCollection(collection);
         await db.close();
         await mongoose.connection.close();
@@ -117,12 +115,12 @@ describe('movieController functionality tests', () => {
 
     it("should throw error in searching for a non-existant movie", async () => {
         try {
-            const response = await movie.find({
+            await movie.find({
                 title: "I don't exist"
             });
         }
         catch (error) {
             expect(error)
-        };
+        }
     });
 })
