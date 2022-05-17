@@ -5,7 +5,7 @@ services:
     container_name: app_movies
     build:
       context: .
-      dockerfile: ./docker/Dockerfile.auth
+      dockerfile: Dockerfile.auth
     ports:
       - published: ${APP_PORT:-3000}
         target: 3000
@@ -19,7 +19,7 @@ services:
     container_name: api_movies
     build:
       context: .
-      dockerfile: ./docker/Dockerfile.movies
+      dockerfile: Dockerfile.movies
     ports:
       - published: ${SERVER_PORT:-5050}
         target: 5050
@@ -29,6 +29,7 @@ services:
       SERVER_PORT: ${SERVER_PORT:-5050}
   db:
     image: mongo:5.0
+    command: --quiet
     container_name: mongodb_movies
     restart: always
     ports:

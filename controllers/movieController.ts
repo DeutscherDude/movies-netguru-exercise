@@ -98,7 +98,7 @@ export const postMovie = asyncHandler(async (req: IUserAuthInfo, res: Response) 
     else {
         // Request body descructuring and movie creation
         const { title } = req.body;
-        const fetched = await fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=${process.env.OMDb_API_KEY}&t=${title}`, {
+        const fetched = await fetch(`${process.env.OMDb_API_URI}=${process.env.OMDb_API_KEY}&t=${title}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -109,7 +109,7 @@ export const postMovie = asyncHandler(async (req: IUserAuthInfo, res: Response) 
             })
             .catch((err: Error) => {
                 console.log(err);
-                res.status(500).json({
+                res.status(418).json({
                     message: 'Internal server error',
                     error: err
                 })

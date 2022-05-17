@@ -1,4 +1,4 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express } from "express";
 import * as dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import connectDB from "./config/db";

@@ -1,6 +1,6 @@
 import { getMockReq } from '@jest-mock/express';
 import { NextFunction } from "express";
-import protect from '../middleware/authMiddleware';
+import protect from './authMiddleware';
 
 describe('authMiddleware functionality test', () => {
     let mockReq: any;

@@ -37,11 +37,11 @@
   },
   "include": [
     "src/**/*",
-    "middleware/authMiddleware.ts",
+    "models/middleware/authMiddleware.ts",
     "models/**/*",
     "controllers/movieController.ts",
-    "./index.ts", 
-    "temp/server.js"  ],
+    "index.ts", 
+    "temp/server.js", "routes", "middleware", "config"  ],
   "exclude": [
     "node_modules",
     "dist/**/*.js",

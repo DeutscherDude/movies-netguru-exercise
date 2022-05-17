@@ -1,4 +1,4 @@
-import { getMovies, postMovie } from '../controllers/movieController';
+import { getMovies, postMovie } from './movieController';
 import mongoose, { Connection } from "mongoose";
 import Movie from "../models/movieModel";
 import * as dotenv from "dotenv";
