@@ -41,7 +41,7 @@
     "models/**/*",
     "controllers/movieController.ts",
     "index.ts", 
-    "temp/server.js", "routes", "middleware", "config"  ],
+    "temp/server.js", "routes", "middleware", "config", "routes", "models"  ],
   "exclude": [
     "node_modules",
     "dist/**/*.js",
@@ -51,7 +51,7 @@
   ],
   "typedocOptions": {
     "excludeExternals": true,
-    "readme" : "none",
+    "readme" : "README.md",
     "entryPoints": [
       "index.ts", 
       "controllers/movieController.ts", 
