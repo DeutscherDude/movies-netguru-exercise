@@ -1,6 +1,7 @@
 import Movie from '../models/movieModel';
 import { Request, Response } from 'express';
 import { StatusCodes } from '../util/statusCodes';
+import { provideStringEnvVar } from '../util/envProvider';
 import mongoose from 'mongoose';
 
 const asyncHandler = require('express-async-handler');
@@ -99,7 +100,9 @@ export const postMovie = asyncHandler(async (req: IUserAuthInfo, res: Response) 
     else {
         // Request body descructuring and movie creation
         const { title } = req.body;
-        const fetched = await fetch(`${process.env.OMDb_API_URI}=${process.env.OMDb_API_KEY}&t=${title}`, {
+        const omdbApiUri = provideStringEnvVar("OMDb_API_URI");
+        const omdbApiKey = provideStringEnvVar('OMDb_API_KEY');
+        const fetched = await fetch(`${omdbApiUri}=${omdbApiKey}&t=${title}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'

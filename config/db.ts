@@ -1,10 +1,12 @@
 import mongoose from "mongoose";
+import { provideStringEnvVar } from "../util/envProvider";
 
-class DbConnectionError extends Error {}
+class DbConnectionError extends Error { }
 
 const connectDB = async () => {
     try {
-        const conn = await mongoose.connect(process.env.MONGO_URI || "mongodb://localhost/movies");
+        const uri = provideStringEnvVar("MONGO_URI");
+        const conn = await mongoose.connect(uri);
     }
     catch (err: any) {
         throw new DbConnectionError(err);

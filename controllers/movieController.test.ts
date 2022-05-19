@@ -1,6 +1,7 @@
 import { getMovies, postMovie } from './movieController';
 import mongoose, { Connection } from "mongoose";
 import Movie from "../models/movieModel";
+import { provideStringEnvVar } from '../util/envProvider';
 import * as dotenv from "dotenv";
 
 describe('movieController functionality tests', () => {
@@ -8,11 +9,12 @@ describe('movieController functionality tests', () => {
     let mockRes: any;
     let connection: any;
     let db: Connection;
+    const mongoUri = provideStringEnvVar("MONGO_URI");
     const movie = Movie;
     dotenv.config();
 
     beforeAll(async () => {
-        connection = await mongoose.connect(process.env.MONGO_URI || "mongodb://localhost/movies");
+        connection = await mongoose.connect(mongoUri);
         db = mongoose.connection;
         const collection = "test_movies";
         await db.createCollection(collection);
