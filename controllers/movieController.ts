@@ -1,5 +1,6 @@
 import Movie from '../models/movieModel';
 import { Request, Response } from 'express';
+import { StatusCodes } from '../util/statusCodes';
 import mongoose from 'mongoose';
 
 const asyncHandler = require('express-async-handler');
@@ -90,7 +91,7 @@ export interface IOMDbPayload extends Response {
 export const postMovie = asyncHandler(async (req: IUserAuthInfo, res: Response) => {
     // User validation check
     if (req.user === null) {
-        res.status(401).json({
+        res.status(StatusCodes.UNAUTHORIZED).json({
             message: 'Invalid token',
             req: req.headers.authorization
         })
@@ -109,7 +110,7 @@ export const postMovie = asyncHandler(async (req: IUserAuthInfo, res: Response) 
             })
             .catch((err: Error) => {
                 console.log(err);
-                res.status(418).json({
+                res.status(StatusCodes.TEAPOT).json({
                     message: 'Internal server error',
                     error: err
                 })
@@ -126,13 +127,13 @@ export const postMovie = asyncHandler(async (req: IUserAuthInfo, res: Response) 
         // Saving the movie in the DB
         return movie.save()
             .then(result => {
-                res.status(201).json({
+                res.status(StatusCodes.CREATED).json({
                     success: true,
                     movie: result,
                 });
             })
             .catch(error => {
-                res.status(500).json({
+                res.status(StatusCodes.BAD_REQUEST).json({
                     message: error.message,
                     error
                 })
@@ -150,7 +151,7 @@ export const postMovie = asyncHandler(async (req: IUserAuthInfo, res: Response) 
 
 export const getMovies = asyncHandler(async (req: IUserAuthInfo, res: Response) => {
     if (req.user === null) {
-        return res.status(401).json({
+        return res.status(StatusCodes.UNAUTHORIZED).json({
             message: 'User not found, please login with valid credentials',
             request: req.headers
         })
@@ -159,14 +160,15 @@ export const getMovies = asyncHandler(async (req: IUserAuthInfo, res: Response) 
         await Movie.find({ user: req.user?.id })
             .exec()
             .then((results) => {
-                return res.status(200).json({
+                return res.status(StatusCodes.OK).json({
                     movies: results,
                     count: results.length,
                 });
             })
             .catch((error) => {
-                message: error.message,
+                return res.status(StatusCodes.NOT_FOUND).json({
                     error
+                })
             });
     }
 });
