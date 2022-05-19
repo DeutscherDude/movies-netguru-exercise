@@ -2,7 +2,12 @@ import { Request, Response, NextFunction } from 'express';
 import { timeConverter } from '../util/timeConverter';
 import * as fs from 'fs';
 
-class logAppendingError extends Error {}
+class logAppendingError extends Error {
+    constructor(message: string) {
+        super(message);
+        this.name = "logAppendingError";
+    }
+}
 
 /**
  * @desc Simple logger middleware that returns the time of the request, http method and response status code.
@@ -26,7 +31,7 @@ const logger = (req: Request, res: Response, next: NextFunction) => {
 
         fs.appendFile("request_logs.txt", log + "\n", err => {
             if (err) {
-                console.log(logAppendingError);
+                throw new logAppendingError("Appending to log file failed. Please make sure you are not running it. If you are, please close it.");
             }
         })
     });

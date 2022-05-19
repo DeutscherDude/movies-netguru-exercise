@@ -1,7 +1,12 @@
 import mongoose from "mongoose";
 import { provideStringEnvVar } from "../util/envProvider";
 
-class DbConnectionError extends Error { }
+class DbConnectionError extends Error {
+    constructor(message: string) {
+        super(message);
+        this.name = "DbConnectionError";
+    }
+}
 
 const connectDB = async () => {
     try {
