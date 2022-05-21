@@ -71,7 +71,6 @@ const protect = asyncHandler(async (req: IUserAuthInfo, res: Response, next: Nex
         catch (error) {
             res.status(401).json({
                 message: 'Invalid token',
-                req: req.headers.authorization,
                 error
             })
         }

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from '../util/statusCodes';
 import { IUserAuthInfo } from '../interfaces/IRequests';
-import { createMovie, findMovie } from "./dbController";
+import { createMovie, findMovie, findMovieById } from "./dbController";
 import { omdbGet } from "./omdbController";
 
 const asyncHandler = require('express-async-handler');
@@ -57,6 +57,11 @@ export const getMovies = asyncHandler(async (req: IUserAuthInfo, res: Response) 
         findMovie(req, res);
     }
 });
+
+export const getMovieById = asyncHandler(async (req: Request, res: Response) => {
+    findMovieById(req, res);
+});
+
 
 export const patchMovie = asyncHandler(async (req: Request, res: Response) => {
     return res.status(StatusCodes.METHOD_NOT_ALLOWED).json({

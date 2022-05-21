@@ -26,15 +26,28 @@ export const createMovie = asyncHandler(async (req: IUserAuthInfo, res: Response
 export const findMovie = asyncHandler(async (req: IUserAuthInfo, res: Response) => {
     await Movie.find({ user: req.user?.id })
         .exec()
-        .then((result: any) => {
+        .then((result) => {
             return res.status(StatusCodes.OK).json({
                 movies: result,
                 count: result.length
             });
         })
-        .catch((err: any) => {
+        .catch((err) => {
             return res.status(StatusCodes.NOT_FOUND).json({
                 err
             });
         });
 });
+
+export const findMovieById = asyncHandler(async (req: IUserAuthInfo, res: Response) => {
+    await Movie.findById(req.params.movie_id)
+        .exec()
+        .then((result) => {
+            return res.status(StatusCodes.OK).json(result);
+        })
+        .catch((err) => {
+            return res.status(StatusCodes.NOT_FOUND).json({
+                err
+            });
+        });
+})
