@@ -27,8 +27,8 @@ Furthermore, you have to provide:
 - MONGO_PASSWORD=(Your MongoDb password)
 - MONGO_URI=(Connection string)
 - JWT_SECRET=(Your secret encryption key for JWT service)
-- SERVER_PORT=(Prefered port for the JWT authorization service, default: 3000)
-- APP_PORT=(Prefered port for the API service, default: 5050)
+- SERVER_PORT=(Prefered port for the JWT authorization service)
+- APP_PORT=(Prefered port for the API service, default)
 - OMDb_API_KEY=(See above for instructions on creating an OMDb API KEY)
 
 As a baseline, you can use the following:

@@ -1,5 +1,5 @@
 import express from "express";
-import { getMovies, postMovie } from "../controllers/movieController";
+import { getMovies, patchMovie, postMovie, putMovie } from "../controllers/movieController";
 import protect from "../middleware/authMiddleware";
 
 /**
@@ -13,6 +13,8 @@ const router = express.Router();
 router
     .route("/")
     .get(protect, getMovies)
-    .post(protect, postMovie);
+    .post(protect, postMovie)
+    .patch(patchMovie)
+    .put(putMovie);
 
 export { router as movieRouter };

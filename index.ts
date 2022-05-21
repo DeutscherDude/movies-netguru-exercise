@@ -1,4 +1,4 @@
-import express, { Express } from "express";
+import express from "express";
 import * as dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import connectDB from "./config/db";
@@ -10,7 +10,7 @@ dotenv.config()
 
 connectDB()
 const port = provideNumericStringEnvVar("SERVER_PORT");
-const app: Express = express();
+const app = express();
 
 app.use(cookieParser());
 app.use(express.json());
