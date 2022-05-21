@@ -46,32 +46,17 @@ export const postMovie = asyncHandler(async (req: IUserAuthInfo, res: Response) 
                 })
             });
         createMovie(req, res, fetched)
-            .then(result => {
+            .then((result: Response) => {
+                if(result === null) {
+                    res.status(StatusCodes.BAD_REQUEST).json({
+                        message: 'Invalid request body',
+                        error: 'Missing movie details'
+                });
+             } else {
                 res.status(StatusCodes.CREATED).json(result);
-            })
-            // const { Title, Released, Genre, Director } = fetched;
-        // const movie = new Movie({
-        //     user: req.user?.id,
-        //     _id: new mongoose.Types.ObjectId(),
-        //     title: Title,
-        //     released: Released,
-        //     genre: Genre,
-        //     director: Director
-        // })
-        // // Saving the movie in the DB
-        // return movie.save()
-        //     .then(result => {
-        //         res.status(StatusCodes.CREATED).json({
-        //             success: true,
-        //             movie: result,
-        //         });
-        //     })
-        //     .catch(error => {
-        //         res.status(StatusCodes.BAD_REQUEST).json({
-        //             message: error.message,
-        //             error
-        //         })
-        //     })
+                }
+            }
+            );
     }
 
 })
