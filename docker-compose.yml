@@ -12,8 +12,10 @@ services:
     volumes:
       - .:/app/
     environment:
-      JWT_SECRET: ${JWT_SECRET:-myTotallySafeSecret}
+      JWT_SECRET: ${JWT_SECRET?error}
       APP_PORT: ${APP_PORT:-3000}
+      OMDb_API_URI: ${OMDb_API_URI?error}
+      OMDb_API_KEY: ${OMDb_API_KEY?error}
   api:
     command: npx ts-node index.ts
     container_name: api_movies
