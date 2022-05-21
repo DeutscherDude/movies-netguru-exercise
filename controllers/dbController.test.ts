@@ -46,8 +46,15 @@ describe('dbController unit tests', () => {
             }
         }
     
+        const mockFetch = {
+            Title: "The Wolverine",
+            Year: "2013",
+            Genre: "Action, Sci-Fi",
+            Director: "James Mangold"
+        }
+
         new Promise(() => {
-            createMovie(mockReq, mockRes);
+            createMovie(mockReq, mockRes, mockFetch);
         }).then(() => {
             expect(mockRes.json).toBeCalledWith({
                 success: true,

@@ -1,9 +1,8 @@
-import { IOMDbPayload } from "../interfaces/IRequests";
 import { provideStringEnvVar } from "../util/envProvider";
 import { StatusCodes } from "../util/statusCodes";
 import { Request, Response } from "express";
+import fetch from 'node-fetch';
 
-const fetch = require("node-fetch");
 const asyncHandler = require('express-async-handler');
 
 export const omdbGet = asyncHandler(async (req: Request, res: Response) => {
@@ -16,7 +15,7 @@ export const omdbGet = asyncHandler(async (req: Request, res: Response) => {
             'Content-Type': 'application/json'
         }
     })
-        .then((res2: IOMDbPayload) => {
+        .then(res2 => {
             return res2.json();
         }
         )

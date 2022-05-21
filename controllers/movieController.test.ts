@@ -14,7 +14,6 @@ describe('movieController functionality tests', () => {
     beforeAll(async () => {
         await mongoose.connect(mongoUri);
         db = mongoose.connection;
-        await db.createCollection(collection);
     })
 
     beforeEach(() => {
@@ -30,7 +29,6 @@ describe('movieController functionality tests', () => {
     })
 
     afterAll(async () => {
-        await db.dropCollection(collection);
         await db.close();
         await mongoose.connection.close();
     })
