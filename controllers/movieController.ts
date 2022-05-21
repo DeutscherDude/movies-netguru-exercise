@@ -4,10 +4,9 @@ import { StatusCodes } from '../util/statusCodes';
 import { provideStringEnvVar } from '../util/envProvider';
 import { IOMDbPayload, IUserAuthInfo } from '../interfaces/IRequests';
 import { createMovie } from "./dbController";
-import mongoose from 'mongoose';
+import { omdbGet } from "./omdbController";
 
 const asyncHandler = require('express-async-handler');
-const fetch = require("node-fetch");
 
 /**
  * Method for asynchronously creating a movie
@@ -25,27 +24,8 @@ export const postMovie = asyncHandler(async (req: IUserAuthInfo, res: Response) 
         })
     }
     else {
-        // Request body descructuring and movie creation
-        const { title } = req.body;
-        const omdbApiUri = provideStringEnvVar("OMDb_API_URI");
-        const omdbApiKey = provideStringEnvVar('OMDb_API_KEY');
-        const fetched = await fetch(`${omdbApiUri}=${omdbApiKey}&t=${title}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then((res2: IOMDbPayload) => {
-                return res2.json();
-            })
-            .catch((err: Error) => {
-                console.log(err);
-                res.status(StatusCodes.TEAPOT).json({
-                    message: 'Internal server error',
-                    error: err
-                })
-            });
-        createMovie(req, res, fetched)
+        // creating a movie and passing a omdb get request to await for
+        createMovie(req, res, await omdbGet(req, res))
             .then((result: Response) => {
                 if(result === null) {
                     res.status(StatusCodes.BAD_REQUEST).json({

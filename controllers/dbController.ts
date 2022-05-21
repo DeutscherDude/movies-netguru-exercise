@@ -8,7 +8,6 @@ const asyncHandler = require('express-async-handler');
 
 export const createMovie = asyncHandler(async (req: IUserAuthInfo, res: Response, fetched: IOMDbPayload ) => {
     const { Title, Released, Genre, Director } = fetched;
-    
     if (Title === undefined || Released === undefined || Genre === undefined || Director === undefined) {
         return null;
     }
