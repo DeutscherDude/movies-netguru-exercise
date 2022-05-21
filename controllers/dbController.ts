@@ -22,3 +22,19 @@ export const createMovie = asyncHandler(async (req: IUserAuthInfo, res: Response
     })
     return movie.save()
 })
+
+export const findMovie = asyncHandler(async (req: IUserAuthInfo, res: Response) => {
+    await Movie.find({ user: req.user?.id })
+        .exec()
+        .then((result: any) => {
+            return res.status(StatusCodes.OK).json({
+                movies: result,
+                count: result.length
+            });
+        })
+        .catch((err: any) => {
+            return res.status(StatusCodes.NOT_FOUND).json({
+                err
+            });
+        });
+});

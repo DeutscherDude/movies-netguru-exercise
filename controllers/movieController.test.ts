@@ -2,21 +2,18 @@ import { getMovies, postMovie } from './movieController';
 import mongoose, { Connection } from "mongoose";
 import Movie from "../models/movieModel";
 import { provideStringEnvVar } from '../util/envProvider';
-import * as dotenv from "dotenv";
 
 describe('movieController functionality tests', () => {
     let mockReq: any;
     let mockRes: any;
-    let connection: any;
     let db: Connection;
     const mongoUri = provideStringEnvVar("MONGO_URI");
     const movie = Movie;
-    dotenv.config();
+    const collection = "test_movies";
 
     beforeAll(async () => {
-        connection = await mongoose.connect(mongoUri);
+        await mongoose.connect(mongoUri);
         db = mongoose.connection;
-        const collection = "test_movies";
         await db.createCollection(collection);
     })
 
@@ -26,14 +23,13 @@ describe('movieController functionality tests', () => {
             json: jest.fn(() => {
                 // 
             }),
-            status: jest.fn(responseStatus => {
+            status: jest.fn(() => {
                 return mockRes;
             })
         };
     })
 
     afterAll(async () => {
-        const collection = "test_movies";
         await db.dropCollection(collection);
         await db.close();
         await mongoose.connection.close();

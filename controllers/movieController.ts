@@ -1,9 +1,7 @@
-import Movie from '../models/movieModel';
 import { Request, Response } from 'express';
 import { StatusCodes } from '../util/statusCodes';
-import { provideStringEnvVar } from '../util/envProvider';
-import { IOMDbPayload, IUserAuthInfo } from '../interfaces/IRequests';
-import { createMovie } from "./dbController";
+import { IUserAuthInfo } from '../interfaces/IRequests';
+import { createMovie, findMovie } from "./dbController";
 import { omdbGet } from "./omdbController";
 
 const asyncHandler = require('express-async-handler');
@@ -56,19 +54,7 @@ export const getMovies = asyncHandler(async (req: IUserAuthInfo, res: Response) 
         })
     }
     else {
-        await Movie.find({ user: req.user?.id })
-            .exec()
-            .then((results) => {
-                return res.status(StatusCodes.OK).json({
-                    movies: results,
-                    count: results.length,
-                });
-            })
-            .catch((error) => {
-                return res.status(StatusCodes.NOT_FOUND).json({
-                    error
-                })
-            });
+        findMovie(req, res);
     }
 });
 

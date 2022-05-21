@@ -1,4 +1,3 @@
-
 class TimeConversionError extends Error {
     constructor(message: string) {
         super(message);
