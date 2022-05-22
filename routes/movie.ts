@@ -1,4 +1,4 @@
-import express, {Request, Response} from "express";
+import express from "express";
 import { getMovies, getMovieById, patchMovie, postMovie, putMovie } from "../controllers/movieController";
 import protect from "../middleware/authMiddleware";
 
@@ -20,9 +20,7 @@ router
 
 // Not functional at the given moment
 router
-    .route('/:movie_id')
-    .get(protect, (req: Request, res: Response) => {
-        res.status(200).json(req.params.movie_id);
-    })
+    .route('/:_id')
+    .get(protect, getMovieById)
 
 export { router as movieRouter };

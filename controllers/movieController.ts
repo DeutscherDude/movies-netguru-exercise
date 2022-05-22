@@ -58,17 +58,32 @@ export const getMovies = asyncHandler(async (req: IUserAuthInfo, res: Response) 
     }
 });
 
+/**
+ * @desc Get a movie by id
+ * @route GET /api/movie/:id
+ * @access Private
+ * @return {Object} movie
+ */
 export const getMovieById = asyncHandler(async (req: Request, res: Response) => {
     findMovieById(req, res);
 });
 
-
+/**
+ * @desc Method not implemented: Update a movie by id
+ * @route PATCH /api/movie/:id
+ * @access Public
+ */
 export const patchMovie = asyncHandler(async (req: Request, res: Response) => {
     return res.status(StatusCodes.METHOD_NOT_ALLOWED).json({
         message: 'Method not allowed'
     })
 });
 
+/**
+ * @desc Method not implemented: Update a movie by id
+ * @route PUT /api/movie/:id
+ * @access Public
+ */
 export const putMovie = asyncHandler(async (req: Request, res: Response) => {
     return res.status(StatusCodes.METHOD_NOT_ALLOWED).json({
         message: 'Method not allowed'
