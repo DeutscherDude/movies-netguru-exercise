@@ -14,8 +14,7 @@ const asyncHandler = require('express-async-handler');
  *  */ 
 
 export const postMovie = asyncHandler(async (req: IUserAuthInfo, res: Response) => {
-    // User validation check
-        // creating a movie and passing a omdb get request to await for
+    // creating a movie and passing a omdb get request to await for
     createMovie(req, res, await omdbGet(req, res))
         .then((result: Response) => {
             if(result === null) {

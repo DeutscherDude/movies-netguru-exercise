@@ -1,6 +1,6 @@
 import { getMockReq } from '@jest-mock/express';
 import { NextFunction } from "express";
-import protect from './authMiddleware';
+import protect from '.././authMiddleware';
 
 describe('authMiddleware functionality test', () => {
     let mockReq: any;
@@ -10,16 +10,14 @@ describe('authMiddleware functionality test', () => {
     beforeEach(() => {
         mockReq = {};
         mockRes = {
-            status: jest.fn(),
-            json: jest.fn(),
+            status: jest.fn().mockReturnThis(),
+            json: jest.fn((...r) => {
+                //
+            })           
         };
     });
 
     it('no authorization header returns missing auth token message', () => {
-        mockReq = {
-            headers: {}
-        }
-
         new Promise (() => {
             protect(mockReq, mockRes, next);
         }).then(() => {

@@ -1,7 +1,7 @@
-import { getMovies, postMovie } from './movieController';
+import { getMovies, postMovie } from '../movieController';
 import mongoose, { Connection } from "mongoose";
-import Movie from "../models/movieModel";
-import { provideStringEnvVar } from '../util/envProvider';
+import Movie from "../../models/movieModel";
+import { provideStringEnvVar } from '../../util/envProvider';
 
 describe('movieController functionality tests', () => {
     let mockReq: any;
@@ -14,6 +14,9 @@ describe('movieController functionality tests', () => {
     beforeAll(async () => {
         await mongoose.connect(mongoUri);
         db = mongoose.connection;
+        await db.collection(collection).deleteOne({
+            title: 'Belle'
+        });
     })
 
     beforeEach(() => {
@@ -29,8 +32,8 @@ describe('movieController functionality tests', () => {
     })
 
     afterAll(async () => {
+        await db.dropCollection(collection);
         await db.close();
-        await mongoose.connection.close();
     })
 
     it("should create a movie", async () => {

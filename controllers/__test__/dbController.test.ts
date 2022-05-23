@@ -1,6 +1,6 @@
 import mongoose, { Connection } from 'mongoose';
-import { provideStringEnvVar } from '../util/envProvider';
-import { createMovie, findMovie } from './dbController';
+import { provideStringEnvVar } from '../../util/envProvider';
+import { createMovie, findMovie } from '../dbController';
 
 describe('dbController unit tests', () => {
     let db: Connection;
@@ -13,6 +13,9 @@ describe('dbController unit tests', () => {
         await mongoose.connect(mongoUri);
         db = mongoose.connection;
         await db.createCollection(collection);
+        await db.collection('collection').deleteOne({
+            title: 'Belle'
+        })
     })
 
     beforeEach(() => {
@@ -22,7 +25,7 @@ describe('dbController unit tests', () => {
                 // 
             }
             ),
-            status: jest.fn(responseStatus => {
+            status: jest.fn(() => {
                 return mockRes;
             }
             )

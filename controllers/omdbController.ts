@@ -7,8 +7,8 @@ const asyncHandler = require('express-async-handler');
 
 export const omdbGet = asyncHandler(async (req: Request, res: Response) => {
     const { title } = req.body;
-    const omdbApiUri = provideStringEnvVar("OMDb_API_URI");
-    const omdbApiKey = provideStringEnvVar('OMDb_API_KEY');
+    const omdbApiUri = provideStringEnvVar("OMDB_API_URI");
+    const omdbApiKey = provideStringEnvVar('OMDB_API_KEY');
     const fetched = await fetch(`${omdbApiUri}=${omdbApiKey}&t=${title}`, {
         method: 'GET',
         headers: {
