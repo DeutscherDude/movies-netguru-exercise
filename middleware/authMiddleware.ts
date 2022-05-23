@@ -1,5 +1,6 @@
 import { verify, JwtPayload, Secret } from 'jsonwebtoken';
 import asyncHandler from 'express-async-handler';
+import { StatusCodes } from '../util/statusCodes';
 import { Request, Response, NextFunction } from 'express';
 import User from "../models/userModel";
 
@@ -69,7 +70,7 @@ const protect = asyncHandler(async (req: IUserAuthInfo, res: Response, next: Nex
             next();
         }
         catch (error) {
-            res.status(401).json({
+            res.status(StatusCodes.UNAUTHORIZED).json({
                 message: 'Invalid token',
                 error
             })
@@ -77,11 +78,16 @@ const protect = asyncHandler(async (req: IUserAuthInfo, res: Response, next: Nex
     }
 
     if (!token) {
-        res.status(401).json({
+        res.status(StatusCodes.UNAUTHORIZED).json({
             message: 'Authorization token is missing',
         })
     }
 
+    if (req.user === null) {
+        res.status(StatusCodes.UNAUTHORIZED).json({
+            message: 'Invalid token',
+        })
+    }
 });
 
 export default protect;
