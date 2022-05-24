@@ -56,9 +56,14 @@
     "entryPoints": [
       "index.ts", 
       "controllers/movieController.ts", 
-      "middleware/authMiddleware.ts", 
+      "controllers/dbController.ts",
+      "controllers/omdbController.ts",
+      "middleware/authMiddleware.ts",
+      "middleware/errorHandlerMiddleware.ts",
+      "middleware/loggerMiddleware.ts",
       "models/userModel.ts", 
       "models/movieModel.ts"],
+    "exclude": "**/__test__/**.ts",
     "out": "docs"
 }
 }

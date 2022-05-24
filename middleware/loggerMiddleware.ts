@@ -10,7 +10,7 @@ class logAppendingError extends Error {
 }
 
 /**
- * @desc Simple logger middleware that returns the time of the request, http method and response status code.
+ * @desc Simple logger middleware that logs status code, HTTP method and time of the request to a txt file.
  * @param req: express.Request 
  * @param res: express.Response
  * @param next: express.NextFunction

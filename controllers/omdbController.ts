@@ -5,6 +5,13 @@ import fetch from 'node-fetch';
 
 const asyncHandler = require('express-async-handler');
 
+/**
+ * @desc Calls OMDB API to fetch a movie by the given title
+ * @access private
+ * @param req: express.Request
+ * @param res: express.Response
+ * @returns IOMDbPayload
+ */
 export const omdbGet = asyncHandler(async (req: Request, res: Response) => {
     const { title } = req.body;
     const omdbApiUri = provideStringEnvVar("OMDB_API_URI");

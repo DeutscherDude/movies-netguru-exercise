@@ -10,9 +10,17 @@ const asyncHandler = require('express-async-handler');
 /**
  * Method for asynchronously creating a movie
  * @access Private
+ * @param req: IUserAuthInfo, extends express.Request
+ * @param res: express.Response
+ * @param fethed: IOMDbPayload, extends express.Response
+ * @param collection: optional string. Pass to create this document in a specific collection
  * @return {Object} movie
  */
-export const createMovie = asyncHandler(async (req: IUserAuthInfo, res: Response, fetched: IOMDbPayload) => {
+export const createMovie = asyncHandler(async (req: IUserAuthInfo, res: Response, fetched: IOMDbPayload, collection: string) => {
+    if (collection === undefined) {
+        collection = 'movies'
+    }
+
     const { Title, Released, Genre, Director } = fetched;
     if (Title === undefined || Released === undefined || Genre === undefined || Director === undefined) {
         return null;
@@ -25,7 +33,10 @@ export const createMovie = asyncHandler(async (req: IUserAuthInfo, res: Response
         released: Released,
         genre: Genre,
         director: Director
-    })
+    },
+        {
+            collection: collection
+        })
     return movie.save()
 })
 
@@ -34,8 +45,8 @@ export const createMovie = asyncHandler(async (req: IUserAuthInfo, res: Response
  * @access Private
  * @return {Object[]} movies, count of movies
  */
-export const findMovie = asyncHandler(async (req: IUserAuthInfo, res: Response) => {
-    await Movie.find({ user: req.user?.id })
+export const findMovie = asyncHandler(async (req: IUserAuthInfo, res: Response, collection: string) => {
+    await Movie.find({ user: req.user?.id }, { collection: collection })
         .exec()
         .then((result) => {
             return res.status(StatusCodes.OK).json({
@@ -54,13 +65,23 @@ export const findMovie = asyncHandler(async (req: IUserAuthInfo, res: Response) 
 /**
  * @desc Get a movie by id
  * @access Private
+ * @param req: IUserAuthInfo, extends express.Request
+ * @param res: express.Response
+ * @param collection - optional string. Pass to find this document in a specific collection  
  * @return {Object} movie
  */
-export const findMovieById = asyncHandler(async (req: IUserAuthInfo, res: Response) => {
+export const findMovieById = asyncHandler(async (req: IUserAuthInfo, res: Response, collection?: string) => {
+    if (collection === undefined){
+        collection = 'movies'
+    }
+
     await Movie.find({
         user: req.user?.id,
         _id: req.params._id
-    })
+    },
+        {
+            collection: collection
+        })
         .exec()
         .then((result) => {
             return res.status(StatusCodes.OK).json(result);
