@@ -13,8 +13,12 @@ const asyncHandler = require('express-async-handler');
  * @return {Object} movie
  *  */ 
 
-export const postMovie = asyncHandler(async (req: IUserAuthInfo, res: Response) => {
+export const postMovie = asyncHandler(async (req: IUserAuthInfo, res: Response, collection?: string) => {
     // creating a movie and passing a omdb get request to await for
+    if (collection === undefined) {
+        collection = 'movies'
+    }
+    
     createMovie(req, res, await omdbGet(req, res))
         .then((result: Response) => {
             if(result === null) {
@@ -35,8 +39,11 @@ export const postMovie = asyncHandler(async (req: IUserAuthInfo, res: Response) 
  * @return {Object[]} movies, count of movies
  *  */ 
 
-export const getMovies = asyncHandler(async (req: IUserAuthInfo, res: Response) => {
-        findMovie(req, res);
+export const getMovies = asyncHandler(async (req: IUserAuthInfo, res: Response, collection?: string) => {
+    if (collection === undefined) {
+        collection = 'movies'
+    }
+    findMovie(req, res, collection);
 });
 
 /**
@@ -45,8 +52,11 @@ export const getMovies = asyncHandler(async (req: IUserAuthInfo, res: Response) 
  * @access Private
  * @return {Object} movie
  */
-export const getMovieById = asyncHandler(async (req: Request, res: Response) => {
-    findMovieById(req, res);
+export const getMovieById = asyncHandler(async (req: Request, res: Response, collection?: string) => {
+    if (collection === undefined) {
+        collection = 'movies'
+    }
+    findMovieById(req, res, collection);
 });
 
 /**

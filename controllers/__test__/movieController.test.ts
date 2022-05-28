@@ -14,9 +14,7 @@ describe('movieController functionality tests', () => {
     beforeAll(async () => {
         await mongoose.connect(mongoUri);
         db = mongoose.connection;
-        await db.collection(collection).deleteOne({
-            title: 'Belle'
-        });
+        db.createCollection(collection);
     })
 
     beforeEach(() => {

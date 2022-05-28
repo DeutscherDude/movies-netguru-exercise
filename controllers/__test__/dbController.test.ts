@@ -1,6 +1,6 @@
 import mongoose, { Connection } from 'mongoose';
 import { provideStringEnvVar } from '../../util/envProvider';
-import { createMovie, findMovie } from '../dbController';
+import { createMovie, findMovie, findMovieById } from '../dbController';
 
 describe('dbController unit tests', () => {
     let db: Connection;
@@ -84,5 +84,24 @@ describe('dbController unit tests', () => {
         }).then(() => {
             expect(mockRes.json).toBeTruthy();
         })
+    })
+
+    it('should find a specific movie created by a User', async() => {
+        mockReq= {
+            user: {
+                id: "6276f7011c3a78d41c04c65b"
+            },
+            params: {
+                _id: "6277d40a90155f37b30a48be"
+            }
+        }
+
+        new Promise(() => {
+            findMovieById(mockReq, mockRes);
+        }
+        ).then(() => {
+            expect(mockRes.json).toBeTruthy();
+        }
+        )
     })
 })

@@ -17,10 +17,6 @@ const asyncHandler = require('express-async-handler');
  * @return {Object} movie
  */
 export const createMovie = asyncHandler(async (req: IUserAuthInfo, res: Response, fetched: IOMDbPayload, collection: string) => {
-    if (collection === undefined) {
-        collection = 'movies'
-    }
-
     const { Title, Released, Genre, Director } = fetched;
     if (Title === undefined || Released === undefined || Genre === undefined || Director === undefined) {
         return null;
@@ -45,7 +41,11 @@ export const createMovie = asyncHandler(async (req: IUserAuthInfo, res: Response
  * @access Private
  * @return {Object[]} movies, count of movies
  */
-export const findMovie = asyncHandler(async (req: IUserAuthInfo, res: Response, collection: string) => {
+export const findMovie = asyncHandler(async (req: IUserAuthInfo, res: Response, collection?: string) => {
+    if (collection === undefined){
+        collection = 'movies'
+    }
+
     await Movie.find({ user: req.user?.id }, { collection: collection })
         .exec()
         .then((result) => {
