@@ -1,6 +1,6 @@
 import { getMockReq } from '@jest-mock/express';
 import { NextFunction } from "express";
-import protect from '.././authMiddleware';
+import protect, { sanitizePayload } from '.././authMiddleware';
 
 describe('authMiddleware functionality test', () => {
     let mockReq: any;
@@ -48,4 +48,22 @@ describe('authMiddleware functionality test', () => {
             expect(next).toHaveBeenCalled();
         })
     })
+
+    it('sanitizePayload function returns sanitized user details', () => {
+        const user = {
+            id: '5e9f8f8f8f8f8f8f8f8f8f8',
+            name: 'test',
+            email: 'jp2@gmd.vaticano',
+            password: 'test',
+            role: 'basic',
+        };
+        
+        let res = sanitizePayload(user);
+        expect(res).toEqual({
+            id: '5e9f8f8f8f8f8f8f8f8f8f8',
+            name: 'test',
+            role: 'basic'
+        });
+    });
+
 });

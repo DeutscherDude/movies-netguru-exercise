@@ -19,14 +19,3 @@ export function provideStringEnvVar(
     }
     return value
 }
-
-export function provideNumericStringEnvVar(
-    key: keyof NodeJS.ProcessEnv
-): number {
-    const value = process.env[key];
-
-    if (Number.isNaN(value)) {
-        throw new EnvVariableError(`Environment variable ${key} is not a number or is not set`);
-    }
-    return Number(value);
-}

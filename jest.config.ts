@@ -6,6 +6,9 @@ const config: Config.InitialOptions = {
         "^.+\\.tsx?$": "ts-jest",
     },
     testEnvironment: "node",
+    setupFiles: [
+        'dotenv/config'
+    ]
 };
 
 export default config;

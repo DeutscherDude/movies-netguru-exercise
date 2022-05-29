@@ -40,7 +40,7 @@ export interface IUserPayload extends JwtPayload {
  * @returns 
  */
 
-function sanitizePayload(user: IUserAuthInfo["user"]): IUserAuthInfo["user"] {
+export function sanitizePayload(user: IUserAuthInfo["user"]): IUserAuthInfo["user"] {
     return {
         id: user?.id,
         name: user?.name,
