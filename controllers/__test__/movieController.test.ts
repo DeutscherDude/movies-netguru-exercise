@@ -2,6 +2,7 @@ import { getMovies, postMovie } from '../movieController';
 import mongoose, { Connection } from "mongoose";
 import Movie from "../../models/movieModel";
 import { provideStringEnvVar } from '../../util/envProvider';
+import { findMovieById } from '../dbController';
 
 describe('movieController functionality tests', () => {
     let mockReq: any;
@@ -124,4 +125,28 @@ describe('movieController functionality tests', () => {
             expect(error)
         }
     });
+
+    it('should return movie by id', async () => {
+        mockReq = {
+            params: {
+                _id: "6277d40a90155f37b30a48be"
+            },
+            user: {
+                // Basic Thomas' user id
+                id: "6276f7011c3a78d41c04c65b"
+            }
+        };
+        new Promise(() => {
+            findMovieById(mockReq, mockRes);
+        }).then(() => {
+            expect(mockRes.json).toBeTruthy();
+            expect(mockRes.json).toHaveBeenCalledWith({
+                title: 'Spider Man',
+                released: '2002-05-02T22:00:00.000+00:00',
+                genre: 'Action, Adventure, Sci-Fi',
+                director: 'Sam Raimi'
+            })
+        })
+    })
+
 })

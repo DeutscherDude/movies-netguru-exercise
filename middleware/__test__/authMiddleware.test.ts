@@ -1,6 +1,8 @@
 import { getMockReq } from '@jest-mock/express';
 import { NextFunction } from "express";
+import { StatusCodes } from '../../util/statusCodes';
 import protect, { sanitizePayload } from '.././authMiddleware';
+import User from "../../models/userModel";
 
 describe('authMiddleware functionality test', () => {
     let mockReq: any;
@@ -45,6 +47,7 @@ describe('authMiddleware functionality test', () => {
         new Promise (() => {
             protect(mockReq, mockRes, next);
         }).then(() => {
+            expect(mockReq.user).toBeInstanceOf(User);
             expect(next).toHaveBeenCalled();
         })
     })
@@ -65,5 +68,26 @@ describe('authMiddleware functionality test', () => {
             role: 'basic'
         });
     });
+
+    it('token not containing a user returns UNAUTHORIZED status code', () => {
+        mockReq = getMockReq({
+            headers:{
+                authorization: 'Bearer 123456789'
+            },
+            cookies: {
+                user: null
+            }
+        })
+        new Promise (() => {
+            protect(mockReq, mockRes, next);
+
+        }).then(() => {
+            expect(mockRes.status).toBeCalledWith(StatusCodes.UNAUTHORIZED);
+            expect(mockRes.status).toBeCalledWith(StatusCodes.UNAUTHORIZED);
+            expect(mockRes.json).toBeCalledWith({
+                message: 'Invalid token',
+            })
+        })
+    })
 
 });

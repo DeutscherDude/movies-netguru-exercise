@@ -2,6 +2,7 @@ import { verify, JwtPayload, Secret } from 'jsonwebtoken';
 import asyncHandler from 'express-async-handler';
 import { StatusCodes } from '../util/statusCodes';
 import { Request, Response, NextFunction } from 'express';
+import { provideStringEnvVar } from "../util/envProvider";
 import User from "../models/userModel";
 
 /**
@@ -55,11 +56,23 @@ export function sanitizePayload(user: IUserAuthInfo["user"]): IUserAuthInfo["use
  * @param {Response} res
  * @param {NextFunction} next
  * @return {void}
- * */ 
+ * */
 
 const protect = asyncHandler(async (req: IUserAuthInfo, res: Response, next: NextFunction) => {
     let token: string | undefined = undefined;
-    const secret = process.env.JWT_SECRET as Secret;
+    const secret = provideStringEnvVar('JWT_SECRET');
+
+    if (token === undefined) {
+        res.status(StatusCodes.UNAUTHORIZED).json({
+            message: 'Authorization token is missing',
+        })
+    }
+
+    if (req.user === null) {
+        res.status(StatusCodes.UNAUTHORIZED).json({
+            message: 'Invalid token',
+        })
+    }
 
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         try {
@@ -77,17 +90,6 @@ const protect = asyncHandler(async (req: IUserAuthInfo, res: Response, next: Nex
         }
     }
 
-    if (!token) {
-        res.status(StatusCodes.UNAUTHORIZED).json({
-            message: 'Authorization token is missing',
-        })
-    }
-
-    if (req.user === null) {
-        res.status(StatusCodes.UNAUTHORIZED).json({
-            message: 'Invalid token',
-        })
-    }
 });
 
 export default protect;

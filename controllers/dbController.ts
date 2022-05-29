@@ -42,7 +42,7 @@ export const createMovie = asyncHandler(async (req: IUserAuthInfo, res: Response
  * @access Private
  * @return {Object[]} movies, count of movies
  */
-export const findMovie = asyncHandler(async (req: IUserAuthInfo, res: Response, collection: string) => {
+export const findMovie = asyncHandler(async (req: IUserAuthInfo, res: Response) => {
     await Movie.find({ user: req.user?.id })
         .exec()
         .then((result) => {
@@ -53,7 +53,8 @@ export const findMovie = asyncHandler(async (req: IUserAuthInfo, res: Response, 
         })
         .catch((err) => {
             return res.status(StatusCodes.NOT_FOUND).json({
-                err
+                success: false,
+                error: 'Movie not found'
             });
         });
 });
@@ -67,11 +68,7 @@ export const findMovie = asyncHandler(async (req: IUserAuthInfo, res: Response, 
  * @param collection - optional string. Pass to find this document in a specific collection  
  * @return {Object} movie
  */
-export const findMovieById = asyncHandler(async (req: IUserAuthInfo, res: Response, collection?: string) => {
-    if (collection === undefined) {
-        collection = 'movies'
-    }
-
+export const findMovieById = asyncHandler(async (req: IUserAuthInfo, res: Response) => {
     await Movie.find({
         user: req.user?.id,
         _id: req.params._id
