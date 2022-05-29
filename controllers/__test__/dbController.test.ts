@@ -12,9 +12,6 @@ describe('dbController unit tests', () => {
         const mongoUri = provideStringEnvVar("MONGO_URI");
         await mongoose.connect(mongoUri);
         db = mongoose.connection;
-        await db.collection(collection).findOneAndDelete({
-            title: 'Belle'
-        })
     })
 
     beforeEach(() => {

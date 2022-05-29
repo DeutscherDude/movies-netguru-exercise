@@ -6,14 +6,14 @@ import { Schema, model, Document } from 'mongoose';
  * @param {String} email
  * @param {String} password
  * @param {String} role
- *  */ 
+ *  */
 
 export interface IUser extends Document {
     role?: 'basic' | 'premium';
     name?: string;
     username?: string;
     password?: string;
-  }
+}
 
 /**
  * User schema
@@ -21,7 +21,7 @@ export interface IUser extends Document {
  * @param {String} email, required
  * @param {String} password, required
  * @param {String} role, required
- *  */ 
+ *  */
 
 const userSchema = new Schema<IUser>({
     role: {
@@ -43,5 +43,9 @@ const userSchema = new Schema<IUser>({
 }, {
     timestamps: true,
 })
+
+userSchema.methods.getName = function () {
+    this.name ? "This user's name is " + this.name : "User's name not set"
+}
 
 export default model<IUser>('User', userSchema);

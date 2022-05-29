@@ -33,10 +33,7 @@ export const createMovie = asyncHandler(async (req: IUserAuthInfo, res: Response
         released: Released,
         genre: Genre,
         director: Director
-    },
-        {
-            collection: collection
-        })
+    })
     return movie.save()
 })
 
@@ -46,7 +43,7 @@ export const createMovie = asyncHandler(async (req: IUserAuthInfo, res: Response
  * @return {Object[]} movies, count of movies
  */
 export const findMovie = asyncHandler(async (req: IUserAuthInfo, res: Response, collection: string) => {
-    await Movie.find({ user: req.user?.id }, { collection: collection })
+    await Movie.find({ user: req.user?.id })
         .exec()
         .then((result) => {
             return res.status(StatusCodes.OK).json({
@@ -71,17 +68,14 @@ export const findMovie = asyncHandler(async (req: IUserAuthInfo, res: Response, 
  * @return {Object} movie
  */
 export const findMovieById = asyncHandler(async (req: IUserAuthInfo, res: Response, collection?: string) => {
-    if (collection === undefined){
+    if (collection === undefined) {
         collection = 'movies'
     }
 
     await Movie.find({
         user: req.user?.id,
         _id: req.params._id
-    },
-        {
-            collection: collection
-        })
+    })
         .exec()
         .then((result) => {
             return res.status(StatusCodes.OK).json(result);

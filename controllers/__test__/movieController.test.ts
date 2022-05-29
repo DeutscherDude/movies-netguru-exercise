@@ -118,7 +118,7 @@ describe('movieController functionality tests', () => {
         try {
             await movie.findOne({
                 title: "I don't exist"
-            });
+            }).exec();
         }
         catch (error) {
             expect(error)
