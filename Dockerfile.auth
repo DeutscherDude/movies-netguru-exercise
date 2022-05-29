@@ -6,6 +6,6 @@ COPY ./package.json ./package-lock.json ./
 RUN npm install
 
 RUN mkdir ./src
-COPY ./src/authorization/. ./src
+COPY ./src/auth.js ./src
 
 CMD ["node", "./src/server.js"]

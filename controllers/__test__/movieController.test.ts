@@ -9,7 +9,7 @@ describe('movieController functionality tests', () => {
     let db: Connection;
     const mongoUri = provideStringEnvVar("MONGO_URI");
     const movie = Movie;
-    const collection = "test_movies";
+    const collection = "movies";
 
     beforeAll(async () => {
         await mongoose.connect(mongoUri);
@@ -32,7 +32,9 @@ describe('movieController functionality tests', () => {
     })
 
     afterAll(async () => {
-        await db.dropCollection(collection);
+        await db.collection(collection).deleteOne({
+            title: 'Belle'
+        });
         await db.close();
     })
 
@@ -114,7 +116,7 @@ describe('movieController functionality tests', () => {
 
     it("should throw error in searching for a non-existant movie", async () => {
         try {
-            await movie.find({
+            await movie.findOne({
                 title: "I don't exist"
             });
         }

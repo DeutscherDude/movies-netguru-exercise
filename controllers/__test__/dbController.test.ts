@@ -6,14 +6,13 @@ describe('dbController unit tests', () => {
     let db: Connection;
     let mockReq: any;
     let mockRes: any;
-    const collection = "test_movies";
+    const collection = "movies";
 
     beforeAll(async () => {
         const mongoUri = provideStringEnvVar("MONGO_URI");
         await mongoose.connect(mongoUri);
         db = mongoose.connection;
-        await db.createCollection(collection);
-        await db.collection('collection').deleteOne({
+        await db.collection(collection).findOneAndDelete({
             title: 'Belle'
         })
     })
@@ -33,7 +32,9 @@ describe('dbController unit tests', () => {
     })
 
     afterAll(async () => {
-        await db.dropCollection(collection);
+        await db.collection(collection).findOneAndDelete({
+            title: 'Belle'
+        });
         await db.close();
         await mongoose.connection.close();
     })

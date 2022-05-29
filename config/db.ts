@@ -9,9 +9,10 @@ class DbConnectionError extends Error {
 }
 
 const connectDB = async () => {
+    const env = provideStringEnvVar("NODE_ENV");
     try {
         const uri = provideStringEnvVar("MONGO_URI");
-        const conn = await mongoose.connect(uri);
+        await mongoose.connect(uri, { autoIndex: env === "development" ? true : false });
     }
     catch (err: any) {
         throw new DbConnectionError(err);
