@@ -25,10 +25,17 @@ describe('Error Handler middleware functionality tests', () => {
         };
 
         mockError = new Error('test error');
+        new Promise(() => {
+            errorHandlerMiddleware(mockError, mockReq, mockRes, next);
+        }).then(() => {
+            expect(mockRes.status).toBeCalledWith(500);
+            expect(mockRes.json).toBeCalledWith({
+                status: 500,
+                message: 'test error',
+                stack: null
+            })
+            expect(next).toBeCalled();
+        });
 
-        errorHandlerMiddleware(mockError, mockReq, mockRes, next);
-
-    });
-
-
+    })
 })
