@@ -16,11 +16,7 @@ const asyncHandler = require('express-async-handler');
  * @param collection: optional string. Pass to create this document in a specific collection
  * @return {Object} movie
  */
-export const createMovie = asyncHandler(async (req: IUserAuthInfo, res: Response, fetched: IOMDbPayload, collection: string) => {
-    if (collection === undefined) {
-        collection = 'movies'
-    }
-
+export const createMovie = asyncHandler(async (req: IUserAuthInfo, res: Response, fetched: IOMDbPayload) => {
     const { Title, Released, Genre, Director } = fetched;
     if (Title === undefined || Released === undefined || Genre === undefined || Director === undefined) {
         return null;

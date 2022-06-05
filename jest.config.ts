@@ -6,6 +6,10 @@ const config: Config.InitialOptions = {
         "^.+\\.tsx?$": "ts-jest",
     },
     testEnvironment: "node",
+    collectCoverageFrom: [
+        "**/*.{ts,tsx}",
+    ],
+    
     setupFiles: [
         'dotenv/config'
     ]
