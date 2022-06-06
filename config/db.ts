@@ -13,6 +13,7 @@ const connectDB = async () => {
     try {
         const uri = provideStringEnvVar("MONGO_URI");
         await mongoose.connect(uri, { autoIndex: env === "development" ? true : false });
+        console.log(mongoose.connection)
     }
     catch (err: any) {
         throw new DbConnectionError(err);

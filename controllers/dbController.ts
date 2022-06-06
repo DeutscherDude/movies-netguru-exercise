@@ -31,6 +31,10 @@ export const createMovie = asyncHandler(async (req: IUserAuthInfo, res: Response
         director: Director
     })
     return movie.save()
+    .catch(err => {
+        console.log(err);
+        return null;
+    })
 })
 
 /**

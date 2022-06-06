@@ -36,7 +36,7 @@ const authFactory = (secret) => (username, password) => {
     {
       issuer: "https://www.netguru.com/",
       subject: `${user.id}`,
-      expiresIn: 30 * 60,
+      expiresIn: 60 * 60,
     }
   );
 };

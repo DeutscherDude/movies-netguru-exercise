@@ -1,4 +1,4 @@
-import { verify, JwtPayload, Secret } from 'jsonwebtoken';
+import { verify, JwtPayload, decode } from 'jsonwebtoken';
 import asyncHandler from 'express-async-handler';
 import { StatusCodes } from '../util/statusCodes';
 import { Request, Response, NextFunction } from 'express';
@@ -30,9 +30,9 @@ export interface IUserAuthInfo extends Request {
 **/
 
 export interface IUserPayload extends JwtPayload {
-    id: string;
-    name: string;
-    role: string;
+    id?: string;
+    name?: string;
+    role?: string;
 }
 
 /**
@@ -62,22 +62,10 @@ const protect = asyncHandler(async (req: IUserAuthInfo, res: Response, next: Nex
     let token: string | undefined = undefined;
     const secret = provideStringEnvVar('JWT_SECRET');
 
-    if (token === undefined) {
-        res.status(StatusCodes.UNAUTHORIZED).json({
-            message: 'Authorization token is missing',
-        })
-    }
-
-    if (req.user === null) {
-        res.status(StatusCodes.UNAUTHORIZED).json({
-            message: 'Invalid token',
-        })
-    }
-
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         try {
             token = req.headers.authorization.split(' ')[1];
-            const decoded = verify(token, secret) as IUserPayload;
+            const decoded = decode(token) as IUserPayload;
             req.user = await User.findById(decoded.id);
             req.user = sanitizePayload(req.user);
             next();
@@ -88,6 +76,12 @@ const protect = asyncHandler(async (req: IUserAuthInfo, res: Response, next: Nex
                 error
             })
         }
+    }
+
+    if (token === undefined) {
+        res.status(StatusCodes.UNAUTHORIZED).json({
+            message: 'Authorization token is missing',
+        })
     }
 
 });

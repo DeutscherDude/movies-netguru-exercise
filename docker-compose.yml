@@ -14,8 +14,6 @@ services:
     environment:
       JWT_SECRET: ${JWT_SECRET?error}
       APP_PORT: ${APP_PORT:-3000}
-      OMDb_API_URI: ${OMDB_API_URI?error}
-      OMDb_API_KEY: ${OMDB_API_KEY?error}
       NODE_ENV: ${NODE_ENV?error}
   api:
     command: npx ts-node index.ts
@@ -29,6 +27,9 @@ services:
     volumes:
       - .:/api/
     environment:
+      JWT_SECRET: ${JWT_SECRET?error}
+      OMDb_API_URI: ${OMDB_API_URI?error}
+      OMDb_API_KEY: ${OMDB_API_KEY?error}
       SERVER_PORT: ${SERVER_PORT:-5050}
   db:
     image: mongo:5.0

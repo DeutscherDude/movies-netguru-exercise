@@ -11,7 +11,7 @@
 </code></pre>
 
 <a href="#generating-a-new-omdb-api-key" id="generating-a-new-omdb-api-key" style="color: inherit; text-decoration: none;">
-  <h2>Generating a new OMDb Api key</h2>
+  <h2>Generating a new OMDB Api key</h2>
 </a>
 <p>Creating a new OMDb Api key can be done under the following url: <a href="https://www.omdbapi.com/apikey.aspx?__EVENTTARGET=freeAcct&amp;__EVENTARGUMENT=&amp;__LASTFOCUS=&amp;__VIEWSTATE=%2FwEPDwUKLTIwNDY4MTIzNQ9kFgYCAQ9kFgICBw8WAh4HVmlzaWJsZWhkAgIPFgIfAGhkAgMPFgIfAGhkGAEFHl9fQ29udHJvbHNSZXF1aXJlUG9zdEJhY2tLZXlfXxYDBQtwYXRyZW9uQWNjdAUIZnJlZUFjY3QFCGZyZWVBY2N0oCxKYG7xaZwy2ktIrVmWGdWzxj%2FDhHQaAqqFYTiRTDE%3D&amp;__VIEWSTATEGENERATOR=5E550F58&amp;__EVENTVALIDATION=%2FwEdAAU%2BO86JjTqdg0yhuGR2tBukmSzhXfnlWWVdWIamVouVTzfZJuQDpLVS6HZFWq5fYpioiDjxFjSdCQfbG0SWduXFd8BcWGH1ot0k0SO7CfuulHLL4j%2B3qCcW3ReXhfb4KKsSs3zlQ%2B48KY6Qzm7wzZbR&amp;at=freeAcct&amp;Email=">Click me</a></p>
 <p>Under &#39;Choose account type&#39; select &#39;FREE&#39;, which allows for 1000 requests per day.</p>
@@ -31,13 +31,17 @@
 <li>MONGO_USERNAME=(Your MongoDb username)</li>
 <li>MONGO_PASSWORD=(Your MongoDb password)</li>
 <li>MONGO_URI=(Connection string)</li>
+<li>MONDO_DB_NAME=(name of your DB)</li>
+<li>MONGO_DB_PORT=(Prefered port for the MongoDB to run on)</li>
 <li>JWT_SECRET=(Your secret encryption key for JWT service)</li>
 <li>SERVER_PORT=(Prefered port for the JWT authorization service)</li>
 <li>APP_PORT=(Prefered port for the API service, default)</li>
-<li>OMDb_API_KEY=(See above for instructions on creating an OMDb API KEY)</li>
+<li>OMDB_API_URI=<a href="http://www.omdbapi.com/?apikey">http://www.omdbapi.com/?apikey</a></li>
+<li>OMDB_API_KEY=(See above for instructions on creating an OMDb API KEY)</li>
+<li>NODE_ENV=(Environment in which you are running the app. &#39;development&#39; or else)</li>
 </ul>
 <p>As a baseline, you can use the following:</p>
-<pre><code><span class="hl-4">MONGO_USERNAME</span><span class="hl-1">=</span><span class="hl-0">Your_MongoDb_username</span><br/><span class="hl-4">MONGO_PASSWORD</span><span class="hl-1">=</span><span class="hl-0">Your_MongoDb_password</span><br/><span class="hl-4">MONGO_URI</span><span class="hl-1">=</span><span class="hl-0">Connection_string</span><br/><span class="hl-4">JWT_SECRET</span><span class="hl-1">=</span><span class="hl-0">Your_secret_encryption_key_for_JWT_service</span><br/><span class="hl-4">SERVER_PORT</span><span class="hl-1">=</span><span class="hl-0">Prefered_port_for_the_JWT_authorization_</span><span class="hl-1"> </span><span class="hl-0">service</span><br/><span class="hl-4">APP_PORT</span><span class="hl-1">=</span><span class="hl-0">Prefered_port_for_the_API_service</span><br/><span class="hl-0">OMDb_API_KEY</span><span class="hl-1">=</span><span class="hl-0">See_above_for_instructions_on_creating_an_OMDb_API_KEY</span>
+<pre><code><span class="hl-4">MONGO_USERNAME</span><span class="hl-1">=</span><span class="hl-0">Your_MongoDb_username</span><br/><span class="hl-4">MONGO_PASSWORD</span><span class="hl-1">=</span><span class="hl-0">Your_MongoDb_password</span><br/><span class="hl-4">MONGO_URI</span><span class="hl-1">=</span><span class="hl-0">Connection_string</span><br/><span class="hl-4">MONGO_DB_NAME</span><span class="hl-1">=</span><span class="hl-0">Name</span><span class="hl-1"> </span><span class="hl-5">of</span><span class="hl-1"> </span><span class="hl-0">your</span><span class="hl-1"> </span><span class="hl-4">DB</span><br/><span class="hl-4">MONGO_DB_PORT</span><span class="hl-1">=</span><span class="hl-6">27017</span><br/><span class="hl-4">JWT_SECRET</span><span class="hl-1">=</span><span class="hl-0">Your_secret_encryption_key_for_JWT_service</span><br/><span class="hl-4">SERVER_PORT</span><span class="hl-1">=</span><span class="hl-0">Prefered_port_for_the_JWT_authorization_</span><span class="hl-1"> </span><span class="hl-0">service</span><br/><span class="hl-4">APP_PORT</span><span class="hl-1">=</span><span class="hl-0">Prefered_port_for_the_API_service</span><br/><span class="hl-4">OMDB_API_KEY</span><span class="hl-1">=</span><span class="hl-0">See_above_for_instructions_on_creating_an_OMDB_API_KEY</span><br/><span class="hl-4">OMDB_API_URI</span><span class="hl-1">=</span><span class="hl-2">http</span><span class="hl-1">:</span><span class="hl-3">//www.omdbapi.com/?apikey</span><br/><span class="hl-4">NODE_ENV</span><span class="hl-1">=</span><span class="hl-0">development</span>
 </code></pre>
 
 <a href="#running-the-project" id="running-the-project" style="color: inherit; text-decoration: none;">
@@ -49,7 +53,7 @@
 <p>To stop the project, run the following command:</p>
 <pre><code><span class="hl-0">docker</span><span class="hl-1">-</span><span class="hl-0">compose</span><span class="hl-1"> </span><span class="hl-0">down</span>
 </code></pre>
-<p><strong>OR</strong> press ctrl + c</p>
+<p><strong>OR</strong> press &#39;CTRL&#39; + &#39;C&#39;</p>
 
 <a href="#api-methods-amp-examples" id="api-methods-amp-examples" style="color: inherit; text-decoration: none;">
   <h2>API methods &amp; examples</h2>
