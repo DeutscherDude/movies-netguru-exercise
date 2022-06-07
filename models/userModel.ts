@@ -6,6 +6,7 @@ import { Schema, model, Document } from 'mongoose';
  * @param {String} email
  * @param {String} password
  * @param {String} role
+ * @param {Integer} moviesAddedThisMonth
  *  */
 
 export interface IUser extends Document {
@@ -13,6 +14,7 @@ export interface IUser extends Document {
     name?: string;
     username?: string;
     password?: string;
+    moviesAddedThisMonth?: number;
 }
 
 /**
@@ -21,6 +23,7 @@ export interface IUser extends Document {
  * @param {String} email, required
  * @param {String} password, required
  * @param {String} role, required
+ * @param {Integer} moviesAddedThisMonth, default: 0
  *  */
 
 const userSchema = new Schema<IUser>({
@@ -40,12 +43,14 @@ const userSchema = new Schema<IUser>({
         type: String,
         required: true,
     },
+    moviesAddedThisMonth: {
+        type: Number,
+        default: 0,
+    },
 }, {
     timestamps: true,
 })
 
-userSchema.methods.getName = function () {
-    this.name ? "This user's name is " + this.name : "User's name not set"
-}
+const User = model('User', userSchema);
 
-export default model<IUser>('User', userSchema);
+export default User;
