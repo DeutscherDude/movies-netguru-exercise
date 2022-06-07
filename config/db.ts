@@ -52,9 +52,14 @@ const connectDB = async () => {
                 console.log(`${change.fullDocument.title} was added to the database`);
                 db.collection('users')
                     .findOne({ _id: change.fullDocument.user })
-                    .then( user => { 
+                    .then(user => {
                         const count = user!.moviesAddedThisMonth + 1;
-                        db.collection('users').updateOne({ _id: user!._id }, { $set: { moviesAddedThisMonth: count }}, { upsert: false});
+                        db.collection('users')
+                            .updateOne(
+                                { _id: user!._id },
+                                { $set: { moviesAddedThisMonth: count } },
+                                { upsert: false }
+                            );
                         console.log(`${user!.name} has added ${count} movies this month`);
                     })
                     .catch(err => console.log(err));

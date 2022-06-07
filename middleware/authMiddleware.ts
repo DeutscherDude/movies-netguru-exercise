@@ -65,6 +65,7 @@ const protect = asyncHandler(async (req: IUserAuthInfo, res: Response, next: Nex
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         try {
             token = req.headers.authorization.split(' ')[1];
+            verify(token, secret);
             const decoded = decode(token) as IUserPayload;
             req.user = await User.findById(decoded.id);
             req.user = sanitizePayload(req.user);

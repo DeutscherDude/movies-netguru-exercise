@@ -27,7 +27,6 @@ const logger = (req: Request, res: Response, next: NextFunction) => {
         const url = req.url;
         const status = res.statusCode;
         log = `[${formattedDate}] ${method}:${url} ${status}`;
-        console.log(log);
 
         fs.appendFile("request_logs.txt", log + "\n", err => {
             if (err) {

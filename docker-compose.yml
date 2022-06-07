@@ -28,8 +28,8 @@ services:
       - .:/api/
     environment:
       JWT_SECRET: ${JWT_SECRET?error}
-      OMDb_API_URI: ${OMDB_API_URI?error}
-      OMDb_API_KEY: ${OMDB_API_KEY?error}
+      OMDB_API_URI: ${OMDB_API_URI?error}
+      OMDB_API_KEY: ${OMDB_API_KEY?error}
       SERVER_PORT: ${SERVER_PORT:-5050}
   db:
     image: mongo:5.0
