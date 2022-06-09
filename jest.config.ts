@@ -7,7 +7,12 @@ const config: Config.InitialOptions = {
     },
     testEnvironment: "node",
     collectCoverageFrom: [
-        "**/*.{ts,tsx}",
+        "**/**/*.{ts,tsx}",
+        "!**/node_modules/**",
+        "!**/dist/**",
+        "!**/coverage/**",
+        "!**/jest.config.ts",
+        "!**/index.ts"
     ],
     
     setupFiles: [

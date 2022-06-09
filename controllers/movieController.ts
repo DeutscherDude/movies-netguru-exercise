@@ -17,14 +17,7 @@ export const postMovie = asyncHandler(async (req: IUserAuthInfo, res: Response) 
     // creating a movie and passing a omdb get request to await for
     createMovie(req, res, await omdbGet(req, res))
         .then((result: Response) => {
-            if(result === null) {
-                res.status(StatusCodes.BAD_REQUEST).json({
-                    message: 'Invalid request body',
-                    error: 'Missing movie details'
-            });
-            } else {
             res.status(StatusCodes.CREATED).json(result);
-            }
         })
 })
 

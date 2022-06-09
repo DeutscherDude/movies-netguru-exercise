@@ -10,11 +10,11 @@ import { Schema, model, Document } from 'mongoose';
  *  */
 
 export interface IUser extends Document {
-    role?: 'basic' | 'premium';
-    name?: string;
-    username?: string;
-    password?: string;
-    moviesAddedThisMonth?: number;
+    role: 'basic' | 'premium';
+    name: string;
+    username: string;
+    password: string;
+    moviesAddedThisMonth: number;
 }
 
 /**
